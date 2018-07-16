@@ -319,6 +319,7 @@
             // 
             // Panel_GraphArea
             // 
+            this.Panel_GraphArea.BackColor = System.Drawing.Color.Transparent;
             this.Panel_GraphArea.Location = new System.Drawing.Point(0, 0);
             this.Panel_GraphArea.Name = "Panel_GraphArea";
             this.Panel_GraphArea.Size = new System.Drawing.Size(800, 450);

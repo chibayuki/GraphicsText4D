@@ -128,6 +128,8 @@ namespace WinFormApp
             Me.OnSizeChanged();
             Me.OnThemeChanged();
 
+            Panel_GraphArea.BackColor = Colors.Background;
+
             Panel_GraphArea.Visible = true;
         }
 
@@ -827,9 +829,9 @@ namespace WinFormApp
 
                 Com.PointD3D Pt_Avg = new Com.PointD3D(0, 0, 0);
 
-                foreach (var V in Side3D[Index])
+                foreach (Com.PointD3D Pt in Side3D[Index])
                 {
-                    Pt_Avg += V;
+                    Pt_Avg += Pt;
                 }
 
                 Pt_Avg /= Side3D[Index].Length;
@@ -967,26 +969,26 @@ namespace WinFormApp
 
                 Bitmap[,] BmpArray = new Bitmap[NumX, NumY]
                 {
-                {
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_ZX, BlockSize)
-                },
-                {
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_ZX, BlockSize)
-                },
-                {
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_ZX, BlockSize)
-                },
-                {
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_ZX, BlockSize)
-                }
+                    {
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_XY, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_YZ, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_ZX, BlockSize)
+                    },
+                    {
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_XY, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_YZ, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_ZX, BlockSize)
+                    },
+                    {
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_XY, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_YZ, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_ZX, BlockSize)
+                    },
+                    {
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_XY, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_YZ, BlockSize),
+                        GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_ZX, BlockSize)
+                    }
                 };
 
                 for (int x = 0; x < NumX; x++)
@@ -999,11 +1001,11 @@ namespace WinFormApp
 
                 //
 
-                foreach (var V in BmpArray)
+                foreach (Bitmap Bmp in BmpArray)
                 {
-                    if (V != null)
+                    if (Bmp != null)
                     {
-                        V.Dispose();
+                        Bmp.Dispose();
                     }
                 }
             }
