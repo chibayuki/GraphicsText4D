@@ -235,6 +235,8 @@ namespace WinFormApp
 
             Bitmap ProjBmp = new Bitmap(Math.Max(1, (Int32)ImageSize.Width), Math.Max(1, (Int32)ImageSize.Height));
 
+            Color TesseractColor = Me.RecommendColors.Main_DEC.ToColor();
+
             //
 
             Com.PointD4D TesseractCenter = new Com.PointD4D(0, 0, 0, 0);
@@ -670,157 +672,96 @@ namespace WinFormApp
                 new PointF[] { P_1110, P_1111 },
             };
 
-            List<Color> ElementColor = new List<Color>(56)
+            List<Color> ElementColor = new List<Color>(56);
+
+            for (int i = 0; i < 56; i++)
             {
-                // XY 面
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
+                Color ECr;
 
-                // XZ 面
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-
-                // XU 面
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                
-                // YZ 面
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-
-                // YU 面
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-
-                // ZU 面
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                
-                // X 棱
-                Colors.X,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-
-                // Y 棱
-                Colors.Y,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-
-                // Z 棱
-                Colors.Z,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-
-                // U 棱
-                Colors.U,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line,
-                Colors.Line
-            };
-
-            Func<Com.PointD3D, Int32, Int32, Int32> GetAlphaOfPoint = (Pt, MinAlpha, MaxAlpha) =>
-            {
-                switch (View)
+                switch (i)
                 {
-                    case Views.XYZ_XY:
-                    case Views.YZU_XY:
-                    case Views.ZUX_XY:
-                    case Views.UXY_XY:
-                        return (Int32)Math.Max(0, Math.Min(((Pt.Z - TesseractCenter.Z) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
-
-                    case Views.XYZ_YZ:
-                    case Views.YZU_YZ:
-                    case Views.ZUX_YZ:
-                    case Views.UXY_YZ:
-                        return (Int32)Math.Max(0, Math.Min(((Pt.X - TesseractCenter.X) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
-
-                    case Views.XYZ_ZX:
-                    case Views.YZU_ZX:
-                    case Views.ZUX_ZX:
-                    case Views.UXY_ZX:
-                        return (Int32)Math.Max(0, Math.Min(((Pt.Y - TesseractCenter.Y) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
-
-                    default:
-                        return 0;
-                }
-            };
-
-            Func<Int32, Brush> GetBrushOfElement = (Index) =>
-            {
-                PointF[] Element = Element2D[Index];
-
-                if (Element.Length >= 3)
-                {
-                    const Int32 _MinAlpha = 16, _MaxAlpha = 48;
-
-                    Com.PointD3D Pt_Avg = new Com.PointD3D(0, 0, 0);
-
-                    foreach (Com.PointD3D Pt in Element3D[Index])
-                    {
-                        Pt_Avg += Pt;
-                    }
-
-                    Pt_Avg /= Element3D[Index].Length;
-
-                    return new SolidBrush(Color.FromArgb(GetAlphaOfPoint(Pt_Avg, _MinAlpha, _MaxAlpha), ElementColor[Index]));
-                }
-                else if (Element.Length == 2)
-                {
-                    const Int32 _MinAlpha = 32, _MaxAlpha = 96;
-
-                    if (Com.PointD.DistanceBetween(new Com.PointD(Element2D[Index][0]), new Com.PointD(Element2D[Index][1])) > 1)
-                    {
-                        Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha), Alpha1 = GetAlphaOfPoint(Element3D[Index][1], _MinAlpha, _MaxAlpha);
-
-                        return new LinearGradientBrush(Element2D[Index][0], Element2D[Index][1], Color.FromArgb(Alpha0, ElementColor[Index]), Color.FromArgb(Alpha1, ElementColor[Index]));
-                    }
-                    else
-                    {
-                        Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha);
-
-                        return new SolidBrush(Color.FromArgb(Alpha0, ElementColor[Index]));
-                    }
+                    case 24: ECr = Colors.X; break;
+                    case 32: ECr = Colors.Y; break;
+                    case 40: ECr = Colors.Z; break;
+                    case 48: ECr = Colors.U; break;
+                    default: ECr = TesseractColor; break;
                 }
 
-                return null;
-            };
+                ElementColor.Add(ECr);
+            }
 
             using (Graphics Grph = Graphics.FromImage(ProjBmp))
             {
                 Grph.SmoothingMode = SmoothingMode.AntiAlias;
 
                 //
+
+                Func<Com.PointD3D, Int32, Int32, Int32> GetAlphaOfPoint = (Pt, MinAlpha, MaxAlpha) =>
+                {
+                    switch (View)
+                    {
+                        case Views.XYZ_XY:
+                        case Views.YZU_XY:
+                        case Views.ZUX_XY:
+                        case Views.UXY_XY:
+                            return (Int32)Math.Max(0, Math.Min(((Pt.Z - TesseractCenter.Z) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
+
+                        case Views.XYZ_YZ:
+                        case Views.YZU_YZ:
+                        case Views.ZUX_YZ:
+                        case Views.UXY_YZ:
+                            return (Int32)Math.Max(0, Math.Min(((Pt.X - TesseractCenter.X) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
+
+                        case Views.XYZ_ZX:
+                        case Views.YZU_ZX:
+                        case Views.ZUX_ZX:
+                        case Views.UXY_ZX:
+                            return (Int32)Math.Max(0, Math.Min(((Pt.Y - TesseractCenter.Y) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
+
+                        default:
+                            return 0;
+                    }
+                };
+
+                Func<Int32, Brush> GetBrushOfElement = (Index) =>
+                {
+                    PointF[] Element = Element2D[Index];
+
+                    if (Element.Length >= 3)
+                    {
+                        const Int32 _MinAlpha = 16, _MaxAlpha = 48;
+
+                        Com.PointD3D Pt_Avg = new Com.PointD3D(0, 0, 0);
+
+                        foreach (Com.PointD3D Pt in Element3D[Index])
+                        {
+                            Pt_Avg += Pt;
+                        }
+
+                        Pt_Avg /= Element3D[Index].Length;
+
+                        return new SolidBrush(Color.FromArgb(GetAlphaOfPoint(Pt_Avg, _MinAlpha, _MaxAlpha), ElementColor[Index]));
+                    }
+                    else if (Element.Length == 2)
+                    {
+                        const Int32 _MinAlpha = 32, _MaxAlpha = 96;
+
+                        if (Com.PointD.DistanceBetween(new Com.PointD(Element2D[Index][0]), new Com.PointD(Element2D[Index][1])) > 1)
+                        {
+                            Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha), Alpha1 = GetAlphaOfPoint(Element3D[Index][1], _MinAlpha, _MaxAlpha);
+
+                            return new LinearGradientBrush(Element2D[Index][0], Element2D[Index][1], Color.FromArgb(Alpha0, ElementColor[Index]), Color.FromArgb(Alpha1, ElementColor[Index]));
+                        }
+                        else
+                        {
+                            Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha);
+
+                            return new SolidBrush(Color.FromArgb(Alpha0, ElementColor[Index]));
+                        }
+                    }
+
+                    return null;
+                };
 
                 for (int i = 0; i < Element2D.Count; i++)
                 {
@@ -1135,15 +1076,18 @@ namespace WinFormApp
             // 鼠标释放 Label_Sxyzu。
             //
 
-            ResizeNow = false;
+            if (e.Button == MouseButtons.Left)
+            {
+                ResizeNow = false;
 
-            ((Label)sender).BackColor = Me.RecommendColors.Button_DEC.ToColor();
-            ((Label)sender).Cursor = Cursors.Default;
+                ((Label)sender).BackColor = (Com.Geometry.CursorIsInControl((Label)sender) ? Me.RecommendColors.Button_DEC.ToColor() : Me.RecommendColors.Button.ToColor());
+                ((Label)sender).Cursor = Cursors.Default;
 
-            Label_Sx.Text = "X";
-            Label_Sy.Text = "Y";
-            Label_Sz.Text = "Z";
-            Label_Su.Text = "U";
+                Label_Sx.Text = "X";
+                Label_Sy.Text = "Y";
+                Label_Sz.Text = "Z";
+                Label_Su.Text = "U";
+            }
         }
 
         private void Label_Sx_MouseMove(object sender, MouseEventArgs e)
@@ -1265,19 +1209,22 @@ namespace WinFormApp
             // 鼠标释放 Label_Rxyzu。
             //
 
-            RotateNow = false;
+            if (e.Button == MouseButtons.Left)
+            {
+                RotateNow = false;
 
-            ((Label)sender).BackColor = Me.RecommendColors.Button_DEC.ToColor();
-            ((Label)sender).Cursor = Cursors.Default;
+                ((Label)sender).BackColor = (Com.Geometry.CursorIsInControl((Label)sender) ? Me.RecommendColors.Button_DEC.ToColor() : Me.RecommendColors.Button.ToColor());
+                ((Label)sender).Cursor = Cursors.Default;
 
-            Label_Rxy.Text = "XY";
-            Label_Ryz.Text = "YZ";
-            Label_Rzu.Text = "ZU";
-            Label_Rux.Text = "UX";
+                Label_Rxy.Text = "XY";
+                Label_Ryz.Text = "YZ";
+                Label_Rzu.Text = "ZU";
+                Label_Rux.Text = "UX";
 
-            Label_Rx.Text = "X";
-            Label_Ry.Text = "Y";
-            Label_Rz.Text = "Z";
+                Label_Rx.Text = "X";
+                Label_Ry.Text = "Y";
+                Label_Rz.Text = "Z";
+            }
         }
 
         private void Label_Rxy_MouseMove(object sender, MouseEventArgs e)
