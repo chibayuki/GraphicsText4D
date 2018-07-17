@@ -235,10 +235,6 @@ namespace WinFormApp
 
             Bitmap ProjBmp = new Bitmap(Math.Max(1, (Int32)ImageSize.Width), Math.Max(1, (Int32)ImageSize.Height));
 
-            Graphics CreateProjBmp = Graphics.FromImage(ProjBmp);
-
-            CreateProjBmp.SmoothingMode = SmoothingMode.AntiAlias;
-
             //
 
             Com.PointD4D TesseractCenter = new Com.PointD4D(0, 0, 0, 0);
@@ -329,23 +325,6 @@ namespace WinFormApp
                     break;
             }
 
-            Com.PointD3D P3D_0000 = new Com.PointD3D();
-            Com.PointD3D P3D_1000 = new Com.PointD3D();
-            Com.PointD3D P3D_0100 = new Com.PointD3D();
-            Com.PointD3D P3D_1100 = new Com.PointD3D();
-            Com.PointD3D P3D_0010 = new Com.PointD3D();
-            Com.PointD3D P3D_1010 = new Com.PointD3D();
-            Com.PointD3D P3D_0110 = new Com.PointD3D();
-            Com.PointD3D P3D_1110 = new Com.PointD3D();
-            Com.PointD3D P3D_0001 = new Com.PointD3D();
-            Com.PointD3D P3D_1001 = new Com.PointD3D();
-            Com.PointD3D P3D_0101 = new Com.PointD3D();
-            Com.PointD3D P3D_1101 = new Com.PointD3D();
-            Com.PointD3D P3D_0011 = new Com.PointD3D();
-            Com.PointD3D P3D_1011 = new Com.PointD3D();
-            Com.PointD3D P3D_0111 = new Com.PointD3D();
-            Com.PointD3D P3D_1111 = new Com.PointD3D();
-
             Func<Com.PointD4D, Com.PointD4D, double, Com.PointD3D> GetProject4D = (Pt, PrjCenter, TrueLenDist) =>
             {
                 switch (View)
@@ -375,22 +354,22 @@ namespace WinFormApp
                 }
             };
 
-            P3D_0000 = GetProject4D(P4D_0000, PrjCenter4D, TrueLenDist4D);
-            P3D_1000 = GetProject4D(P4D_1000, PrjCenter4D, TrueLenDist4D);
-            P3D_0100 = GetProject4D(P4D_0100, PrjCenter4D, TrueLenDist4D);
-            P3D_1100 = GetProject4D(P4D_1100, PrjCenter4D, TrueLenDist4D);
-            P3D_0010 = GetProject4D(P4D_0010, PrjCenter4D, TrueLenDist4D);
-            P3D_1010 = GetProject4D(P4D_1010, PrjCenter4D, TrueLenDist4D);
-            P3D_0110 = GetProject4D(P4D_0110, PrjCenter4D, TrueLenDist4D);
-            P3D_1110 = GetProject4D(P4D_1110, PrjCenter4D, TrueLenDist4D);
-            P3D_0001 = GetProject4D(P4D_0001, PrjCenter4D, TrueLenDist4D);
-            P3D_1001 = GetProject4D(P4D_1001, PrjCenter4D, TrueLenDist4D);
-            P3D_0101 = GetProject4D(P4D_0101, PrjCenter4D, TrueLenDist4D);
-            P3D_1101 = GetProject4D(P4D_1101, PrjCenter4D, TrueLenDist4D);
-            P3D_0011 = GetProject4D(P4D_0011, PrjCenter4D, TrueLenDist4D);
-            P3D_1011 = GetProject4D(P4D_1011, PrjCenter4D, TrueLenDist4D);
-            P3D_0111 = GetProject4D(P4D_0111, PrjCenter4D, TrueLenDist4D);
-            P3D_1111 = GetProject4D(P4D_1111, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0000 = GetProject4D(P4D_0000, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1000 = GetProject4D(P4D_1000, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0100 = GetProject4D(P4D_0100, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1100 = GetProject4D(P4D_1100, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0010 = GetProject4D(P4D_0010, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1010 = GetProject4D(P4D_1010, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0110 = GetProject4D(P4D_0110, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1110 = GetProject4D(P4D_1110, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0001 = GetProject4D(P4D_0001, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1001 = GetProject4D(P4D_1001, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0101 = GetProject4D(P4D_0101, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1101 = GetProject4D(P4D_1101, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0011 = GetProject4D(P4D_0011, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1011 = GetProject4D(P4D_1011, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_0111 = GetProject4D(P4D_0111, PrjCenter4D, TrueLenDist4D);
+            Com.PointD3D P3D_1111 = GetProject4D(P4D_1111, PrjCenter4D, TrueLenDist4D);
 
             Com.PointD3D RotateCenter3D = new Com.PointD3D();
 
@@ -468,23 +447,6 @@ namespace WinFormApp
                     break;
             }
 
-            Com.PointD P2D_0000 = new Com.PointD();
-            Com.PointD P2D_1000 = new Com.PointD();
-            Com.PointD P2D_0100 = new Com.PointD();
-            Com.PointD P2D_1100 = new Com.PointD();
-            Com.PointD P2D_0010 = new Com.PointD();
-            Com.PointD P2D_1010 = new Com.PointD();
-            Com.PointD P2D_0110 = new Com.PointD();
-            Com.PointD P2D_1110 = new Com.PointD();
-            Com.PointD P2D_0001 = new Com.PointD();
-            Com.PointD P2D_1001 = new Com.PointD();
-            Com.PointD P2D_0101 = new Com.PointD();
-            Com.PointD P2D_1101 = new Com.PointD();
-            Com.PointD P2D_0011 = new Com.PointD();
-            Com.PointD P2D_1011 = new Com.PointD();
-            Com.PointD P2D_0111 = new Com.PointD();
-            Com.PointD P2D_1111 = new Com.PointD();
-
             Func<Com.PointD3D, Com.PointD3D, double, Com.PointD> GetProject3D = (Pt, PrjCenter, TrueLenDist) =>
             {
                 switch (View)
@@ -512,22 +474,22 @@ namespace WinFormApp
                 }
             };
 
-            P2D_0000 = GetProject3D(P3D_0000, PrjCenter3D, TrueLenDist3D);
-            P2D_1000 = GetProject3D(P3D_1000, PrjCenter3D, TrueLenDist3D);
-            P2D_0100 = GetProject3D(P3D_0100, PrjCenter3D, TrueLenDist3D);
-            P2D_1100 = GetProject3D(P3D_1100, PrjCenter3D, TrueLenDist3D);
-            P2D_0010 = GetProject3D(P3D_0010, PrjCenter3D, TrueLenDist3D);
-            P2D_1010 = GetProject3D(P3D_1010, PrjCenter3D, TrueLenDist3D);
-            P2D_0110 = GetProject3D(P3D_0110, PrjCenter3D, TrueLenDist3D);
-            P2D_1110 = GetProject3D(P3D_1110, PrjCenter3D, TrueLenDist3D);
-            P2D_0001 = GetProject3D(P3D_0001, PrjCenter3D, TrueLenDist3D);
-            P2D_1001 = GetProject3D(P3D_1001, PrjCenter3D, TrueLenDist3D);
-            P2D_0101 = GetProject3D(P3D_0101, PrjCenter3D, TrueLenDist3D);
-            P2D_1101 = GetProject3D(P3D_1101, PrjCenter3D, TrueLenDist3D);
-            P2D_0011 = GetProject3D(P3D_0011, PrjCenter3D, TrueLenDist3D);
-            P2D_1011 = GetProject3D(P3D_1011, PrjCenter3D, TrueLenDist3D);
-            P2D_0111 = GetProject3D(P3D_0111, PrjCenter3D, TrueLenDist3D);
-            P2D_1111 = GetProject3D(P3D_1111, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0000 = GetProject3D(P3D_0000, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1000 = GetProject3D(P3D_1000, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0100 = GetProject3D(P3D_0100, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1100 = GetProject3D(P3D_1100, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0010 = GetProject3D(P3D_0010, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1010 = GetProject3D(P3D_1010, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0110 = GetProject3D(P3D_0110, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1110 = GetProject3D(P3D_1110, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0001 = GetProject3D(P3D_0001, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1001 = GetProject3D(P3D_1001, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0101 = GetProject3D(P3D_0101, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1101 = GetProject3D(P3D_1101, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0011 = GetProject3D(P3D_0011, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1011 = GetProject3D(P3D_1011, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_0111 = GetProject3D(P3D_0111, PrjCenter3D, TrueLenDist3D);
+            Com.PointD P2D_1111 = GetProject3D(P3D_1111, PrjCenter3D, TrueLenDist3D);
 
             Com.PointD BitmapCenter = new Com.PointD(ProjBmp.Size) / 2;
 
@@ -550,126 +512,45 @@ namespace WinFormApp
 
             //
 
-            List<Com.PointD3D[]> Side3D = new List<Com.PointD3D[]>
+            List<Com.PointD3D[]> Element3D = new List<Com.PointD3D[]>(56)
             {
-                // XY
+                // XY 面
                 new Com.PointD3D[] { P3D_0000, P3D_0100, P3D_1100, P3D_1000 },
                 new Com.PointD3D[] { P3D_0010, P3D_0110, P3D_1110, P3D_1010 },
                 new Com.PointD3D[] { P3D_0001, P3D_0101, P3D_1101, P3D_1001 },
                 new Com.PointD3D[] { P3D_0011, P3D_0111, P3D_1111, P3D_1011 },
 
-                // XZ
+                // XZ 面
                 new Com.PointD3D[] { P3D_0000, P3D_0010, P3D_1010, P3D_1000 },
                 new Com.PointD3D[] { P3D_0100, P3D_0110, P3D_1110, P3D_1100 },
                 new Com.PointD3D[] { P3D_0001, P3D_0011, P3D_1011, P3D_1001 },
                 new Com.PointD3D[] { P3D_0101, P3D_0111, P3D_1111, P3D_1101 },
 
-                // XU
+                // XU 面
                 new Com.PointD3D[] { P3D_0000, P3D_0001, P3D_1001, P3D_1000 },
                 new Com.PointD3D[] { P3D_0100, P3D_0101, P3D_1101, P3D_1100 },
                 new Com.PointD3D[] { P3D_0010, P3D_0011, P3D_1011, P3D_1010 },
                 new Com.PointD3D[] { P3D_0110, P3D_0111, P3D_1111, P3D_1110 },
-
-                // YZ
+                        
+                // YZ 面
                 new Com.PointD3D[] { P3D_0000, P3D_0010, P3D_0110, P3D_0100 },
                 new Com.PointD3D[] { P3D_1000, P3D_1010, P3D_1110, P3D_1100 },
                 new Com.PointD3D[] { P3D_0001, P3D_0011, P3D_0111, P3D_0101 },
                 new Com.PointD3D[] { P3D_1001, P3D_1011, P3D_1111, P3D_1101 },
 
-                // YU
+                // YU 面
                 new Com.PointD3D[] { P3D_0000, P3D_0001, P3D_0101, P3D_0100 },
                 new Com.PointD3D[] { P3D_1000, P3D_1001, P3D_1101, P3D_1100 },
                 new Com.PointD3D[] { P3D_0010, P3D_0011, P3D_0111, P3D_0110 },
                 new Com.PointD3D[] { P3D_1010, P3D_1011, P3D_1111, P3D_1110 },
 
-                // ZU
+                // ZU 面
                 new Com.PointD3D[] { P3D_0000, P3D_0001, P3D_0011, P3D_0010 },
                 new Com.PointD3D[] { P3D_1000, P3D_1001, P3D_1011, P3D_1010 },
                 new Com.PointD3D[] { P3D_0100, P3D_0101, P3D_0111, P3D_0110 },
-                new Com.PointD3D[] { P3D_1100, P3D_1101, P3D_1111, P3D_1110 }
-            };
+                new Com.PointD3D[] { P3D_1100, P3D_1101, P3D_1111, P3D_1110 },
 
-            List<PointF[]> Side2D = new List<PointF[]>()
-            {
-                // XY
-                new PointF[] { P_0000, P_0100, P_1100, P_1000 },
-                new PointF[] { P_0010, P_0110, P_1110, P_1010 },
-                new PointF[] { P_0001, P_0101, P_1101, P_1001 },
-                new PointF[] { P_0011, P_0111, P_1111, P_1011 },
-
-                // XZ
-                new PointF[] { P_0000, P_0010, P_1010, P_1000 },
-                new PointF[] { P_0100, P_0110, P_1110, P_1100 },
-                new PointF[] { P_0001, P_0011, P_1011, P_1001 },
-                new PointF[] { P_0101, P_0111, P_1111, P_1101 },
-
-                // XU
-                new PointF[] { P_0000, P_0001, P_1001, P_1000 },
-                new PointF[] { P_0100, P_0101, P_1101, P_1100 },
-                new PointF[] { P_0010, P_0011, P_1011, P_1010 },
-                new PointF[] { P_0110, P_0111, P_1111, P_1110 },
-
-                // YZ
-                new PointF[] { P_0000, P_0010, P_0110, P_0100 },
-                new PointF[] { P_1000, P_1010, P_1110, P_1100 },
-                new PointF[] { P_0001, P_0011, P_0111, P_0101 },
-                new PointF[] { P_1001, P_1011, P_1111, P_1101 },
-
-                // YU
-                new PointF[] { P_0000, P_0001, P_0101, P_0100 },
-                new PointF[] { P_1000, P_1001, P_1101, P_1100 },
-                new PointF[] { P_0010, P_0011, P_0111, P_0110 },
-                new PointF[] { P_1010, P_1011, P_1111, P_1110 },
-
-                // ZU
-                new PointF[] { P_0000, P_0001, P_0011, P_0010 },
-                new PointF[] { P_1000, P_1001, P_1011, P_1010 },
-                new PointF[] { P_0100, P_0101, P_0111, P_0110 },
-                new PointF[] { P_1100, P_1101, P_1111, P_1110 }
-            };
-
-            List<Color> SideColor = new List<Color>()
-            {
-                // XY
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-
-                // XZ
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-
-                // XU
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                
-                // YZ
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-
-                // YU
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-
-                // ZU
-                Colors.Side,
-                Colors.Side,
-                Colors.Side,
-                Colors.Side
-            };
-
-            List<Com.PointD3D[]> Line3D = new List<Com.PointD3D[]>()
-            {
-                // X
+                // X 棱
                 new Com.PointD3D[] { P3D_0000, P3D_1000 },
                 new Com.PointD3D[] { P3D_0100, P3D_1100 },
                 new Com.PointD3D[] { P3D_0010, P3D_1010 },
@@ -679,7 +560,7 @@ namespace WinFormApp
                 new Com.PointD3D[] { P3D_0011, P3D_1011 },
                 new Com.PointD3D[] { P3D_0111, P3D_1111 },
 
-                // Y
+                // Y 棱
                 new Com.PointD3D[] { P3D_0000, P3D_0100 },
                 new Com.PointD3D[] { P3D_1000, P3D_1100 },
                 new Com.PointD3D[] { P3D_0010, P3D_0110 },
@@ -689,7 +570,7 @@ namespace WinFormApp
                 new Com.PointD3D[] { P3D_0011, P3D_0111 },
                 new Com.PointD3D[] { P3D_1011, P3D_1111 },
 
-                // Z
+                // Z 棱
                 new Com.PointD3D[] { P3D_0000, P3D_0010 },
                 new Com.PointD3D[] { P3D_1000, P3D_1010 },
                 new Com.PointD3D[] { P3D_0100, P3D_0110 },
@@ -699,7 +580,7 @@ namespace WinFormApp
                 new Com.PointD3D[] { P3D_0101, P3D_0111 },
                 new Com.PointD3D[] { P3D_1101, P3D_1111 },
 
-                // U
+                // U 棱
                 new Com.PointD3D[] { P3D_0000, P3D_0001 },
                 new Com.PointD3D[] { P3D_1000, P3D_1001 },
                 new Com.PointD3D[] { P3D_0100, P3D_0101 },
@@ -710,9 +591,45 @@ namespace WinFormApp
                 new Com.PointD3D[] { P3D_1110, P3D_1111 }
             };
 
-            List<PointF[]> Line2D = new List<PointF[]>()
+            List<PointF[]> Element2D = new List<PointF[]>(56)
             {
-                // X
+                // XY 面
+                new PointF[] { P_0000, P_0100, P_1100, P_1000 },
+                new PointF[] { P_0010, P_0110, P_1110, P_1010 },
+                new PointF[] { P_0001, P_0101, P_1101, P_1001 },
+                new PointF[] { P_0011, P_0111, P_1111, P_1011 },
+
+                // XZ 面
+                new PointF[] { P_0000, P_0010, P_1010, P_1000 },
+                new PointF[] { P_0100, P_0110, P_1110, P_1100 },
+                new PointF[] { P_0001, P_0011, P_1011, P_1001 },
+                new PointF[] { P_0101, P_0111, P_1111, P_1101 },
+
+                // XU 面
+                new PointF[] { P_0000, P_0001, P_1001, P_1000 },
+                new PointF[] { P_0100, P_0101, P_1101, P_1100 },
+                new PointF[] { P_0010, P_0011, P_1011, P_1010 },
+                new PointF[] { P_0110, P_0111, P_1111, P_1110 },
+
+                // YZ 面
+                new PointF[] { P_0000, P_0010, P_0110, P_0100 },
+                new PointF[] { P_1000, P_1010, P_1110, P_1100 },
+                new PointF[] { P_0001, P_0011, P_0111, P_0101 },
+                new PointF[] { P_1001, P_1011, P_1111, P_1101 },
+
+                // YU 面
+                new PointF[] { P_0000, P_0001, P_0101, P_0100 },
+                new PointF[] { P_1000, P_1001, P_1101, P_1100 },
+                new PointF[] { P_0010, P_0011, P_0111, P_0110 },
+                new PointF[] { P_1010, P_1011, P_1111, P_1110 },
+
+                // ZU 面
+                new PointF[] { P_0000, P_0001, P_0011, P_0010 },
+                new PointF[] { P_1000, P_1001, P_1011, P_1010 },
+                new PointF[] { P_0100, P_0101, P_0111, P_0110 },
+                new PointF[] { P_1100, P_1101, P_1111, P_1110 },
+                        
+                // X 棱
                 new PointF[] { P_0000, P_1000 },
                 new PointF[] { P_0100, P_1100 },
                 new PointF[] { P_0010, P_1010 },
@@ -722,7 +639,7 @@ namespace WinFormApp
                 new PointF[] { P_0011, P_1011 },
                 new PointF[] { P_0111, P_1111 },
 
-                // Y
+                // Y 棱
                 new PointF[] { P_0000, P_0100 },
                 new PointF[] { P_1000, P_1100 },
                 new PointF[] { P_0010, P_0110 },
@@ -732,7 +649,7 @@ namespace WinFormApp
                 new PointF[] { P_0011, P_0111 },
                 new PointF[] { P_1011, P_1111 },
 
-                // Z
+                // Z 棱
                 new PointF[] { P_0000, P_0010 },
                 new PointF[] { P_1000, P_1010 },
                 new PointF[] { P_0100, P_0110 },
@@ -742,7 +659,7 @@ namespace WinFormApp
                 new PointF[] { P_0101, P_0111 },
                 new PointF[] { P_1101, P_1111 },
 
-                // U
+                // U 棱
                 new PointF[] { P_0000, P_0001 },
                 new PointF[] { P_1000, P_1001 },
                 new PointF[] { P_0100, P_0101 },
@@ -753,9 +670,45 @@ namespace WinFormApp
                 new PointF[] { P_1110, P_1111 },
             };
 
-            List<Color> LineColor = new List<Color>()
+            List<Color> ElementColor = new List<Color>(56)
             {
-                // X
+                // XY 面
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+
+                // XZ 面
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+
+                // XU 面
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                
+                // YZ 面
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+
+                // YU 面
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+
+                // ZU 面
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                Colors.Side,
+                
+                // X 棱
                 Colors.X,
                 Colors.Line,
                 Colors.Line,
@@ -765,7 +718,7 @@ namespace WinFormApp
                 Colors.Line,
                 Colors.Line,
 
-                // Y
+                // Y 棱
                 Colors.Y,
                 Colors.Line,
                 Colors.Line,
@@ -775,7 +728,7 @@ namespace WinFormApp
                 Colors.Line,
                 Colors.Line,
 
-                // Z
+                // Z 棱
                 Colors.Z,
                 Colors.Line,
                 Colors.Line,
@@ -785,7 +738,7 @@ namespace WinFormApp
                 Colors.Line,
                 Colors.Line,
 
-                // U
+                // U 棱
                 Colors.U,
                 Colors.Line,
                 Colors.Line,
@@ -823,87 +776,103 @@ namespace WinFormApp
                 }
             };
 
-            Func<Int32, Brush> GetBrushOfSide = (Index) =>
+            Func<Int32, Brush> GetBrushOfElement = (Index) =>
             {
-                const Int32 _MinAlpha = 16, _MaxAlpha = 48;
+                PointF[] Element = Element2D[Index];
 
-                Com.PointD3D Pt_Avg = new Com.PointD3D(0, 0, 0);
-
-                foreach (Com.PointD3D Pt in Side3D[Index])
+                if (Element.Length >= 3)
                 {
-                    Pt_Avg += Pt;
+                    const Int32 _MinAlpha = 16, _MaxAlpha = 48;
+
+                    Com.PointD3D Pt_Avg = new Com.PointD3D(0, 0, 0);
+
+                    foreach (Com.PointD3D Pt in Element3D[Index])
+                    {
+                        Pt_Avg += Pt;
+                    }
+
+                    Pt_Avg /= Element3D[Index].Length;
+
+                    return new SolidBrush(Color.FromArgb(GetAlphaOfPoint(Pt_Avg, _MinAlpha, _MaxAlpha), ElementColor[Index]));
+                }
+                else if (Element.Length == 2)
+                {
+                    const Int32 _MinAlpha = 32, _MaxAlpha = 96;
+
+                    if (Com.PointD.DistanceBetween(new Com.PointD(Element2D[Index][0]), new Com.PointD(Element2D[Index][1])) > 1)
+                    {
+                        Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha), Alpha1 = GetAlphaOfPoint(Element3D[Index][1], _MinAlpha, _MaxAlpha);
+
+                        return new LinearGradientBrush(Element2D[Index][0], Element2D[Index][1], Color.FromArgb(Alpha0, ElementColor[Index]), Color.FromArgb(Alpha1, ElementColor[Index]));
+                    }
+                    else
+                    {
+                        Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha);
+
+                        return new SolidBrush(Color.FromArgb(Alpha0, ElementColor[Index]));
+                    }
                 }
 
-                Pt_Avg /= Side3D[Index].Length;
-
-                return new SolidBrush(Color.FromArgb(GetAlphaOfPoint(Pt_Avg, _MinAlpha, _MaxAlpha), SideColor[Index]));
+                return null;
             };
 
-            Func<Int32, Brush> GetBrushOfLine = (Index) =>
+            using (Graphics Grph = Graphics.FromImage(ProjBmp))
             {
-                const Int32 _MinAlpha = 32, _MaxAlpha = 96;
+                Grph.SmoothingMode = SmoothingMode.AntiAlias;
 
-                if (Com.PointD.DistanceBetween(new Com.PointD(Line2D[Index][0]), new Com.PointD(Line2D[Index][1])) > 1)
+                //
+
+                for (int i = 0; i < Element2D.Count; i++)
                 {
-                    Int32 Alpha0 = GetAlphaOfPoint(Line3D[Index][0], _MinAlpha, _MaxAlpha), Alpha1 = GetAlphaOfPoint(Line3D[Index][1], _MinAlpha, _MaxAlpha);
+                    PointF[] Element = Element2D[i];
 
-                    return new LinearGradientBrush(Line2D[Index][0], Line2D[Index][1], Color.FromArgb(Alpha0, LineColor[Index]), Color.FromArgb(Alpha1, LineColor[Index]));
+                    using (Brush Br = GetBrushOfElement(i))
+                    {
+                        if (Element.Length >= 3)
+                        {
+                            Grph.FillPolygon(Br, Element);
+                        }
+                        else if (Element.Length == 2)
+                        {
+                            Grph.DrawLine(new Pen(Br, 2F), Element[0], Element[1]);
+                        }
+                    }
                 }
-                else
+
+                Grph.DrawString("X", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_1000, 64, 192), Colors.X)), P_1000);
+                Grph.DrawString("Y", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_0100, 64, 192), Colors.Y)), P_0100);
+                Grph.DrawString("Z", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_0010, 64, 192), Colors.Z)), P_0010);
+                Grph.DrawString("U", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_0001, 64, 192), Colors.U)), P_0001);
+
+                //
+
+                string ViewName = string.Empty;
+
+                switch (View)
                 {
-                    Int32 Alpha0 = GetAlphaOfPoint(Line3D[Index][0], _MinAlpha, _MaxAlpha);
+                    case Views.XYZ_XY: ViewName = "XYZ-XY 视图 (主视图)"; break;
+                    case Views.XYZ_YZ: ViewName = "XYZ-YZ 视图"; break;
+                    case Views.XYZ_ZX: ViewName = "XYZ-ZX 视图"; break;
 
-                    return new SolidBrush(Color.FromArgb(Alpha0, LineColor[Index]));
+                    case Views.YZU_XY: ViewName = "YZU-XY 视图"; break;
+                    case Views.YZU_YZ: ViewName = "YZU-YZ 视图"; break;
+                    case Views.YZU_ZX: ViewName = "YZU-ZX 视图"; break;
+
+                    case Views.ZUX_XY: ViewName = "ZUX-XY 视图"; break;
+                    case Views.ZUX_YZ: ViewName = "ZUX-YZ 视图"; break;
+                    case Views.ZUX_ZX: ViewName = "ZUX-ZX 视图"; break;
+
+                    case Views.UXY_XY: ViewName = "UXY-XY 视图"; break;
+                    case Views.UXY_YZ: ViewName = "UXY-YZ 视图"; break;
+                    case Views.UXY_ZX: ViewName = "UXY-ZX 视图"; break;
                 }
-            };
 
-            for (int i = 0; i < Side2D.Count; i++)
-            {
-                CreateProjBmp.FillPolygon(GetBrushOfSide(i), Side2D[i]);
+                Grph.DrawString(ViewName, new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Colors.Text), new PointF(Math.Max(0, (ProjBmp.Width - ProjBmp.Height) / 2), Math.Max(0, (ProjBmp.Height - ProjBmp.Width) / 2)));
+
+                //
+
+                Grph.DrawRectangle(new Pen(Color.FromArgb(64, Colors.Border), 1F), new Rectangle(new Point(0, 0), ProjBmp.Size));
             }
-
-            for (int i = 0; i < Line2D.Count; i++)
-            {
-                CreateProjBmp.DrawLine(new Pen(GetBrushOfLine(i), 2F), Line2D[i][0], Line2D[i][1]);
-            }
-
-            CreateProjBmp.DrawString("X", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_1000, 64, 192), Colors.X)), P_1000);
-            CreateProjBmp.DrawString("Y", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_0100, 64, 192), Colors.Y)), P_0100);
-            CreateProjBmp.DrawString("Z", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_0010, 64, 192), Colors.Z)), P_0010);
-            CreateProjBmp.DrawString("U", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_0001, 64, 192), Colors.U)), P_0001);
-
-            //
-
-            string ViewName = string.Empty;
-
-            switch (View)
-            {
-                case Views.XYZ_XY: ViewName = "XYZ-XY 视图 (主视图)"; break;
-                case Views.XYZ_YZ: ViewName = "XYZ-YZ 视图"; break;
-                case Views.XYZ_ZX: ViewName = "XYZ-ZX 视图"; break;
-
-                case Views.YZU_XY: ViewName = "YZU-XY 视图"; break;
-                case Views.YZU_YZ: ViewName = "YZU-YZ 视图"; break;
-                case Views.YZU_ZX: ViewName = "YZU-ZX 视图"; break;
-
-                case Views.ZUX_XY: ViewName = "ZUX-XY 视图"; break;
-                case Views.ZUX_YZ: ViewName = "ZUX-YZ 视图"; break;
-                case Views.ZUX_ZX: ViewName = "ZUX-ZX 视图"; break;
-
-                case Views.UXY_XY: ViewName = "UXY-XY 视图"; break;
-                case Views.UXY_YZ: ViewName = "UXY-YZ 视图"; break;
-                case Views.UXY_ZX: ViewName = "UXY-ZX 视图"; break;
-            }
-
-            CreateProjBmp.DrawString(ViewName, new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Colors.Text), new PointF(Math.Max(0, (ProjBmp.Width - ProjBmp.Height) / 2), Math.Max(0, (ProjBmp.Height - ProjBmp.Width) / 2)));
-
-            //
-
-            CreateProjBmp.DrawRectangle(new Pen(Color.FromArgb(64, Colors.Border), 1F), new Rectangle(new Point(0, 0), ProjBmp.Size));
-
-            //
-
-            CreateProjBmp.Dispose();
 
             return ProjBmp;
         }
