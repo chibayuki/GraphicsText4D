@@ -94,9 +94,9 @@
             this.Label_Control_SubFormTitle.TabIndex = 0;
             this.Label_Control_SubFormTitle.Text = "控制";
             this.Label_Control_SubFormTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Control_SubFormTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
-            this.Label_Control_SubFormTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseMove);
-            this.Label_Control_SubFormTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
+            this.Label_Control_SubFormTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_SubFormTitle_MouseDown);
+            this.Label_Control_SubFormTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Control_SubFormTitle_MouseMove);
+            this.Label_Control_SubFormTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_SubFormTitle_MouseUp);
             // 
             // Panel_Control_SubFormClient
             // 
@@ -140,11 +140,11 @@
             this.Label_Sx.TabIndex = 0;
             this.Label_Sx.Text = "X";
             this.Label_Sx.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Sx.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseDown);
-            this.Label_Sx.MouseEnter += new System.EventHandler(this.Label_Sxyzu_MouseEnter);
-            this.Label_Sx.MouseLeave += new System.EventHandler(this.Label_Sxyzu_MouseLeave);
+            this.Label_Sx.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Sx.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Sx.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Sx.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Sx_MouseMove);
-            this.Label_Sx.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseUp);
+            this.Label_Sx.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Sy
             // 
@@ -156,11 +156,11 @@
             this.Label_Sy.TabIndex = 0;
             this.Label_Sy.Text = "Y";
             this.Label_Sy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Sy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseDown);
-            this.Label_Sy.MouseEnter += new System.EventHandler(this.Label_Sxyzu_MouseEnter);
-            this.Label_Sy.MouseLeave += new System.EventHandler(this.Label_Sxyzu_MouseLeave);
+            this.Label_Sy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Sy.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Sy.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Sy.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Sy_MouseMove);
-            this.Label_Sy.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseUp);
+            this.Label_Sy.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Sz
             // 
@@ -172,11 +172,11 @@
             this.Label_Sz.TabIndex = 0;
             this.Label_Sz.Text = "Z";
             this.Label_Sz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Sz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseDown);
-            this.Label_Sz.MouseEnter += new System.EventHandler(this.Label_Sxyzu_MouseEnter);
-            this.Label_Sz.MouseLeave += new System.EventHandler(this.Label_Sxyzu_MouseLeave);
+            this.Label_Sz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Sz.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Sz.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Sz.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Sz_MouseMove);
-            this.Label_Sz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseUp);
+            this.Label_Sz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Su
             // 
@@ -188,11 +188,11 @@
             this.Label_Su.TabIndex = 0;
             this.Label_Su.Text = "U";
             this.Label_Su.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Su.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseDown);
-            this.Label_Su.MouseEnter += new System.EventHandler(this.Label_Sxyzu_MouseEnter);
-            this.Label_Su.MouseLeave += new System.EventHandler(this.Label_Sxyzu_MouseLeave);
+            this.Label_Su.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Su.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Su.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Su.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Su_MouseMove);
-            this.Label_Su.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Sxyzu_MouseUp);
+            this.Label_Su.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Rotation
             // 
@@ -215,11 +215,11 @@
             this.Label_Rxy.TabIndex = 0;
             this.Label_Rxy.Text = "XY";
             this.Label_Rxy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Rxy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseDown);
-            this.Label_Rxy.MouseEnter += new System.EventHandler(this.Label_Rxyzu_MouseEnter);
-            this.Label_Rxy.MouseLeave += new System.EventHandler(this.Label_Rxyzu_MouseLeave);
+            this.Label_Rxy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Rxy.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Rxy.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Rxy.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rxy_MouseMove);
-            this.Label_Rxy.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseUp);
+            this.Label_Rxy.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Ryz
             // 
@@ -231,11 +231,11 @@
             this.Label_Ryz.TabIndex = 0;
             this.Label_Ryz.Text = "YZ";
             this.Label_Ryz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Ryz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseDown);
-            this.Label_Ryz.MouseEnter += new System.EventHandler(this.Label_Rxyzu_MouseEnter);
-            this.Label_Ryz.MouseLeave += new System.EventHandler(this.Label_Rxyzu_MouseLeave);
+            this.Label_Ryz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Ryz.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Ryz.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Ryz.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Ryz_MouseMove);
-            this.Label_Ryz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseUp);
+            this.Label_Ryz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Rzu
             // 
@@ -247,11 +247,11 @@
             this.Label_Rzu.TabIndex = 0;
             this.Label_Rzu.Text = "ZU";
             this.Label_Rzu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Rzu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseDown);
-            this.Label_Rzu.MouseEnter += new System.EventHandler(this.Label_Rxyzu_MouseEnter);
-            this.Label_Rzu.MouseLeave += new System.EventHandler(this.Label_Rxyzu_MouseLeave);
+            this.Label_Rzu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Rzu.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Rzu.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Rzu.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rzu_MouseMove);
-            this.Label_Rzu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseUp);
+            this.Label_Rzu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Rux
             // 
@@ -263,11 +263,11 @@
             this.Label_Rux.TabIndex = 0;
             this.Label_Rux.Text = "UX";
             this.Label_Rux.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Rux.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseDown);
-            this.Label_Rux.MouseEnter += new System.EventHandler(this.Label_Rxyzu_MouseEnter);
-            this.Label_Rux.MouseLeave += new System.EventHandler(this.Label_Rxyzu_MouseLeave);
+            this.Label_Rux.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Rux.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Rux.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Rux.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rux_MouseMove);
-            this.Label_Rux.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseUp);
+            this.Label_Rux.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Rx
             // 
@@ -279,11 +279,11 @@
             this.Label_Rx.TabIndex = 0;
             this.Label_Rx.Text = "X";
             this.Label_Rx.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Rx.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseDown);
-            this.Label_Rx.MouseEnter += new System.EventHandler(this.Label_Rxyzu_MouseEnter);
-            this.Label_Rx.MouseLeave += new System.EventHandler(this.Label_Rxyzu_MouseLeave);
+            this.Label_Rx.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Rx.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Rx.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Rx.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rx_MouseMove);
-            this.Label_Rx.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseUp);
+            this.Label_Rx.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Ry
             // 
@@ -295,11 +295,11 @@
             this.Label_Ry.TabIndex = 0;
             this.Label_Ry.Text = "Y";
             this.Label_Ry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Ry.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseDown);
-            this.Label_Ry.MouseEnter += new System.EventHandler(this.Label_Rxyzu_MouseEnter);
-            this.Label_Ry.MouseLeave += new System.EventHandler(this.Label_Rxyzu_MouseLeave);
+            this.Label_Ry.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Ry.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Ry.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Ry.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Ry_MouseMove);
-            this.Label_Ry.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseUp);
+            this.Label_Ry.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Label_Rz
             // 
@@ -311,11 +311,11 @@
             this.Label_Rz.TabIndex = 0;
             this.Label_Rz.Text = "Z";
             this.Label_Rz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Rz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseDown);
-            this.Label_Rz.MouseEnter += new System.EventHandler(this.Label_Rxyzu_MouseEnter);
-            this.Label_Rz.MouseLeave += new System.EventHandler(this.Label_Rxyzu_MouseLeave);
+            this.Label_Rz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Rz.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Rz.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
             this.Label_Rz.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rz_MouseMove);
-            this.Label_Rz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Rxyzu_MouseUp);
+            this.Label_Rz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
             // Panel_GraphArea
             // 
