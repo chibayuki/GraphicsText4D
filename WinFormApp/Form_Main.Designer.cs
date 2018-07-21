@@ -48,6 +48,7 @@
             this.Label_Ry = new System.Windows.Forms.Label();
             this.Label_Rz = new System.Windows.Forms.Label();
             this.Panel_GraphArea = new System.Windows.Forms.Panel();
+            this.BackgroundWorker_RepaintBmpDelay = new System.ComponentModel.BackgroundWorker();
             this.Panel_Main.SuspendLayout();
             this.Panel_Client.SuspendLayout();
             this.Panel_Control.SuspendLayout();
@@ -80,15 +81,14 @@
             this.Panel_Control.Controls.Add(this.Panel_Control_SubFormClient);
             this.Panel_Control.Location = new System.Drawing.Point(0, 0);
             this.Panel_Control.Name = "Panel_Control";
-            this.Panel_Control.Size = new System.Drawing.Size(267, 142);
+            this.Panel_Control.Size = new System.Drawing.Size(265, 140);
             this.Panel_Control.TabIndex = 0;
-            this.Panel_Control.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_Control_Paint);
             // 
             // Label_Control_SubFormTitle
             // 
             this.Label_Control_SubFormTitle.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label_Control_SubFormTitle.ForeColor = System.Drawing.Color.White;
-            this.Label_Control_SubFormTitle.Location = new System.Drawing.Point(1, 1);
+            this.Label_Control_SubFormTitle.Location = new System.Drawing.Point(0, 0);
             this.Label_Control_SubFormTitle.Name = "Label_Control_SubFormTitle";
             this.Label_Control_SubFormTitle.Size = new System.Drawing.Size(265, 20);
             this.Label_Control_SubFormTitle.TabIndex = 0;
@@ -113,7 +113,7 @@
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rx);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Ry);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rz);
-            this.Panel_Control_SubFormClient.Location = new System.Drawing.Point(1, 21);
+            this.Panel_Control_SubFormClient.Location = new System.Drawing.Point(0, 20);
             this.Panel_Control_SubFormClient.Name = "Panel_Control_SubFormClient";
             this.Panel_Control_SubFormClient.Size = new System.Drawing.Size(265, 120);
             this.Panel_Control_SubFormClient.TabIndex = 0;
@@ -327,6 +327,11 @@
             this.Panel_GraphArea.Visible = false;
             this.Panel_GraphArea.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_GraphArea_Paint);
             // 
+            // BackgroundWorker_RepaintBmpDelay
+            // 
+            this.BackgroundWorker_RepaintBmpDelay.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_RepaintBmpDelay_DoWork);
+            this.BackgroundWorker_RepaintBmpDelay.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RepaintBmpDelay_RunWorkerCompleted);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -368,5 +373,6 @@
         private System.Windows.Forms.Label Label_Size;
         private System.Windows.Forms.Label Label_Rotation;
         private System.Windows.Forms.Panel Panel_Control_SubFormClient;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker_RepaintBmpDelay;
     }
 }
