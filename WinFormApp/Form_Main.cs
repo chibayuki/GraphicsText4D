@@ -209,7 +209,7 @@ namespace WinFormApp
             COUNT
         }
 
-        private Bitmap GetProjectionOfTesseract(Com.PointD4D TesseractSize, double[,] AffineMatrix4D, double[,] AffineMatrix3D, Views View, SizeF ImageSize)
+        private Bitmap GetProjectionOfTesseract(Com.PointD4D TesseractSize, Color TesseractColor, double[,] AffineMatrix4D, double[,] AffineMatrix3D, Views View, SizeF ImageSize)
         {
             //
             // 获取超立方体的投影。
@@ -219,9 +219,7 @@ namespace WinFormApp
 
             TesseractSize = TesseractSize.VectorNormalize * TesseractDiag;
 
-            Bitmap PrjBmp = new Bitmap(Math.Max(1, (Int32)ImageSize.Width), Math.Max(1, (Int32)ImageSize.Height));
-
-            Color TesseractColor = Me.RecommendColors.Main_DEC.ToColor();
+            Bitmap PrjBmp = new Bitmap(Math.Max(1, (int)ImageSize.Width), Math.Max(1, (int)ImageSize.Height));
 
             //
 
@@ -658,22 +656,105 @@ namespace WinFormApp
                 new PointF[] { P_1110, P_1111 },
             };
 
-            List<Color> ElementColor = new List<Color>(56);
+            //
 
-            for (int i = 0; i < 56; i++)
+            List<Color> ElementColor = new List<Color>(Element3D.Count);
+
+            for (int i = 0; i < Element3D.Count; i++)
             {
-                Color ECr;
-
                 switch (i)
                 {
-                    case 24: ECr = Colors.X; break;
-                    case 32: ECr = Colors.Y; break;
-                    case 40: ECr = Colors.Z; break;
-                    case 48: ECr = Colors.U; break;
-                    default: ECr = TesseractColor; break;
+                    case 24:
+                        ElementColor.Add(Colors.X);
+                        break;
+
+                    case 32:
+                        ElementColor.Add(Colors.Y);
+                        break;
+
+                    case 40:
+                        ElementColor.Add(Colors.Z);
+                        break;
+
+                    case 48:
+                        ElementColor.Add(Colors.U);
+                        break;
+
+                    default:
+                        {
+                            if (i < 24)
+                            {
+                                ElementColor.Add(TesseractColor);
+                            }
+                            else
+                            {
+                                ElementColor.Add(Com.ColorManipulation.ShiftLightnessByHSL(TesseractColor, 0.5));
+                            }
+                        }
+                        break;
+                }
+            }
+
+            //
+
+            List<double> ElementZAvg = new List<double>(Element3D.Count);
+
+            for (int i = 0; i < Element3D.Count; i++)
+            {
+                Com.PointD3D[] Element = Element3D[i];
+
+                double ZAvg = 0;
+
+                foreach (Com.PointD3D P in Element)
+                {
+                    switch (View)
+                    {
+                        case Views.XYZ_XY:
+                        case Views.YZU_XY:
+                        case Views.ZUX_XY:
+                        case Views.UXY_XY:
+                            ZAvg += P.Z;
+                            break;
+
+                        case Views.XYZ_YZ:
+                        case Views.YZU_YZ:
+                        case Views.ZUX_YZ:
+                        case Views.UXY_YZ:
+                            ZAvg += P.X;
+                            break;
+
+                        case Views.XYZ_ZX:
+                        case Views.YZU_ZX:
+                        case Views.ZUX_ZX:
+                        case Views.UXY_ZX:
+                            ZAvg += P.Y;
+                            break;
+                    }
                 }
 
-                ElementColor.Add(ECr);
+                ZAvg /= Element.Length;
+
+                ElementZAvg.Add(ZAvg);
+            }
+
+            List<int> ElementIndex = new List<int>(ElementZAvg.Count);
+
+            for (int i = 0; i < ElementZAvg.Count; i++)
+            {
+                ElementIndex.Add(i);
+            }
+
+            for (int i = 0; i < ElementZAvg.Count; i++)
+            {
+                for (int j = i + 1; j < ElementZAvg.Count; j++)
+                {
+                    if (ElementZAvg[ElementIndex[i]] < ElementZAvg[ElementIndex[j]] || (ElementZAvg[ElementIndex[i]] <= ElementZAvg[ElementIndex[j]] + 2F && Element2D[ElementIndex[i]].Length < Element2D[ElementIndex[j]].Length))
+                    {
+                        int Temp = ElementIndex[i];
+                        ElementIndex[i] = ElementIndex[j];
+                        ElementIndex[j] = Temp;
+                    }
+                }
             }
 
             //
@@ -684,7 +765,153 @@ namespace WinFormApp
 
                 //
 
-                Func<Com.PointD3D, Int32, Int32, Int32> GetAlphaOfPoint = (Pt, MinAlpha, MaxAlpha) =>
+                for (int i = 0; i < ElementIndex.Count; i++)
+                {
+                    int EIndex = ElementIndex[i];
+
+                    Color EColor = ElementColor[EIndex];
+
+                    if (!EColor.IsEmpty && EColor.A > 0)
+                    {
+                        PointF[] Element = Element2D[EIndex];
+
+                        if (Element.Length >= 3)
+                        {
+                            try
+                            {
+                                using (SolidBrush Br = new SolidBrush(EColor))
+                                {
+                                    Grph.FillPolygon(Br, Element);
+                                }
+                            }
+                            catch { }
+                        }
+                        else if (Element.Length == 2)
+                        {
+                            double PrjZ = 0;
+
+                            switch (View)
+                            {
+                                case Views.XYZ_XY:
+                                case Views.YZU_XY:
+                                case Views.ZUX_XY:
+                                case Views.UXY_XY:
+                                    PrjZ = PrjCenter3D.Z;
+                                    break;
+
+                                case Views.XYZ_YZ:
+                                case Views.YZU_YZ:
+                                case Views.ZUX_YZ:
+                                case Views.UXY_YZ:
+                                    PrjZ = PrjCenter3D.X;
+                                    break;
+
+                                case Views.XYZ_ZX:
+                                case Views.YZU_ZX:
+                                case Views.ZUX_ZX:
+                                case Views.UXY_ZX:
+                                    PrjZ = PrjCenter3D.Y;
+                                    break;
+                            }
+
+                            float EdgeWidth = (TrueLenDist3D == 0 ? 2F : (float)(TrueLenDist3D / (ElementZAvg[EIndex] - PrjZ) * 2F));
+
+                            try
+                            {
+                                Brush Br;
+
+                                Func<Color, double, int> GetAlpha = (Cr, Z) =>
+                                {
+                                    int Alpha;
+
+                                    if (TrueLenDist3D == 0)
+                                    {
+                                        Alpha = Cr.A;
+                                    }
+                                    else
+                                    {
+                                        if (Z - PrjZ <= TrueLenDist3D)
+                                        {
+                                            Alpha = Cr.A;
+                                        }
+                                        else
+                                        {
+                                            Alpha = (int)Math.Max(0, Math.Min(TrueLenDist3D / (Z - PrjZ) * Cr.A, 255));
+                                        }
+                                    }
+
+                                    if (EdgeWidth < 1)
+                                    {
+                                        Alpha = (int)(Alpha * EdgeWidth);
+                                    }
+
+                                    return Alpha;
+                                };
+
+                                if (Com.PointD.DistanceBetween(new Com.PointD(Element[0]), new Com.PointD(Element[1])) > 1)
+                                {
+                                    int Alpha0 = 0, Alpha1 = 0;
+
+                                    switch (View)
+                                    {
+                                        case Views.XYZ_XY:
+                                        case Views.YZU_XY:
+                                        case Views.ZUX_XY:
+                                        case Views.UXY_XY:
+                                            {
+                                                Alpha0 = GetAlpha(EColor, Element3D[EIndex][0].Z);
+                                                Alpha1 = GetAlpha(EColor, Element3D[EIndex][1].Z);
+                                            }
+                                            break;
+
+                                        case Views.XYZ_YZ:
+                                        case Views.YZU_YZ:
+                                        case Views.ZUX_YZ:
+                                        case Views.UXY_YZ:
+                                            {
+                                                Alpha0 = GetAlpha(EColor, Element3D[EIndex][0].X);
+                                                Alpha1 = GetAlpha(EColor, Element3D[EIndex][1].X);
+                                            }
+                                            break;
+
+                                        case Views.XYZ_ZX:
+                                        case Views.YZU_ZX:
+                                        case Views.ZUX_ZX:
+                                        case Views.UXY_ZX:
+                                            {
+                                                Alpha0 = GetAlpha(EColor, Element3D[EIndex][0].Y);
+                                                Alpha1 = GetAlpha(EColor, Element3D[EIndex][1].Y);
+                                            }
+                                            break;
+                                    }
+
+                                    Br = new LinearGradientBrush(Element[0], Element[1], Color.FromArgb(Alpha0, EColor), Color.FromArgb(Alpha1, EColor));
+                                }
+                                else
+                                {
+                                    int Alpha = GetAlpha(EColor, ElementZAvg[EIndex]);
+
+                                    Br = new SolidBrush(Color.FromArgb(Alpha, EColor));
+                                }
+
+                                using (Pen Pn = new Pen(Br, EdgeWidth))
+                                {
+                                    Grph.DrawLines(Pn, Element);
+                                }
+
+                                if (Br != null)
+                                {
+                                    Br.Dispose();
+                                }
+                            }
+                            catch { }
+                        }
+                    }
+                }
+
+                //
+
+                Func<Com.PointD3D, int, int, int> GetAlphaOfPoint = (Pt, MinAlpha, MaxAlpha) =>
                 {
                     switch (View)
                     {
@@ -692,81 +919,24 @@ namespace WinFormApp
                         case Views.YZU_XY:
                         case Views.ZUX_XY:
                         case Views.UXY_XY:
-                            return (Int32)Math.Max(0, Math.Min(((Pt.Z - TesseractCenter.Z) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
+                            return (int)Math.Max(0, Math.Min(((Pt.Z - TesseractCenter.Z) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
 
                         case Views.XYZ_YZ:
                         case Views.YZU_YZ:
                         case Views.ZUX_YZ:
                         case Views.UXY_YZ:
-                            return (Int32)Math.Max(0, Math.Min(((Pt.X - TesseractCenter.X) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
+                            return (int)Math.Max(0, Math.Min(((Pt.X - TesseractCenter.X) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
 
                         case Views.XYZ_ZX:
                         case Views.YZU_ZX:
                         case Views.ZUX_ZX:
                         case Views.UXY_ZX:
-                            return (Int32)Math.Max(0, Math.Min(((Pt.Y - TesseractCenter.Y) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
+                            return (int)Math.Max(0, Math.Min(((Pt.Y - TesseractCenter.Y) / TesseractDiag + 0.5) * (MinAlpha - MaxAlpha) + MaxAlpha, 255));
 
                         default:
                             return 0;
                     }
                 };
-
-                Func<Int32, Brush> GetBrushOfElement = (Index) =>
-                {
-                    PointF[] Element = Element2D[Index];
-
-                    if (Element.Length >= 3)
-                    {
-                        const Int32 _MinAlpha = 16, _MaxAlpha = 48;
-
-                        Com.PointD3D Pt_Avg = new Com.PointD3D(0, 0, 0);
-
-                        foreach (Com.PointD3D Pt in Element3D[Index])
-                        {
-                            Pt_Avg += Pt;
-                        }
-
-                        Pt_Avg /= Element3D[Index].Length;
-
-                        return new SolidBrush(Color.FromArgb(GetAlphaOfPoint(Pt_Avg, _MinAlpha, _MaxAlpha), ElementColor[Index]));
-                    }
-                    else if (Element.Length == 2)
-                    {
-                        const Int32 _MinAlpha = 32, _MaxAlpha = 96;
-
-                        if (Com.PointD.DistanceBetween(new Com.PointD(Element2D[Index][0]), new Com.PointD(Element2D[Index][1])) > 1)
-                        {
-                            Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha), Alpha1 = GetAlphaOfPoint(Element3D[Index][1], _MinAlpha, _MaxAlpha);
-
-                            return new LinearGradientBrush(Element2D[Index][0], Element2D[Index][1], Color.FromArgb(Alpha0, ElementColor[Index]), Color.FromArgb(Alpha1, ElementColor[Index]));
-                        }
-                        else
-                        {
-                            Int32 Alpha0 = GetAlphaOfPoint(Element3D[Index][0], _MinAlpha, _MaxAlpha);
-
-                            return new SolidBrush(Color.FromArgb(Alpha0, ElementColor[Index]));
-                        }
-                    }
-
-                    return null;
-                };
-
-                for (int i = 0; i < Element2D.Count; i++)
-                {
-                    PointF[] Element = Element2D[i];
-
-                    using (Brush Br = GetBrushOfElement(i))
-                    {
-                        if (Element.Length >= 3)
-                        {
-                            Grph.FillPolygon(Br, Element);
-                        }
-                        else if (Element.Length == 2)
-                        {
-                            Grph.DrawLine(new Pen(Br, 2F), Element[0], Element[1]);
-                        }
-                    }
-                }
 
                 Grph.DrawString("X", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_1000, 64, 192), Colors.X)), P_1000);
                 Grph.DrawString("Y", new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134), new SolidBrush(Color.FromArgb(GetAlphaOfPoint(P3D_0100, 64, 192), Colors.Y)), P_0100);
@@ -835,9 +1005,6 @@ namespace WinFormApp
             public static readonly Color Y = Color.Lime;
             public static readonly Color Z = Color.DeepSkyBlue;
             public static readonly Color U = Color.DarkOrange;
-
-            public static readonly Color Side = Color.White;
-            public static readonly Color Line = Color.White;
         }
 
         private Bitmap Bmp; // 位图。
@@ -928,21 +1095,21 @@ namespace WinFormApp
 
                 Bitmap[] PrjBmpArray = new Bitmap[(int)Views.COUNT]
                 {
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.XYZ_ZX, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.XYZ_XY, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.XYZ_YZ, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.XYZ_ZX, BlockSize),
 
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.YZU_ZX, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.YZU_XY, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.YZU_YZ, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.YZU_ZX, BlockSize),
 
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.ZUX_ZX, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.ZUX_XY, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.ZUX_YZ, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.ZUX_ZX, BlockSize),
 
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_XY, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_YZ, BlockSize),
-                    GetProjectionOfTesseract(TesseractSize, AffineMatrix4D, AffineMatrix3D, Views.UXY_ZX, BlockSize)
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.UXY_XY, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.UXY_YZ, BlockSize),
+                    GetProjectionOfTesseract(TesseractSize, Me.RecommendColors.Main_DEC.AtAlpha(128).ToColor(), AffineMatrix4D, AffineMatrix3D, Views.UXY_ZX, BlockSize)
                 };
 
                 for (int i = 0; i < PrjBmpArray.Length; i++)
@@ -951,7 +1118,7 @@ namespace WinFormApp
 
                     if (PrjBmp != null)
                     {
-                        Grph.DrawImage(PrjBmp, new Point((Int32)(BlockSize.Width * (i % W)), (Int32)(BlockSize.Height * (i / W))));
+                        Grph.DrawImage(PrjBmp, new Point((int)(BlockSize.Width * (i % W)), (int)(BlockSize.Height * (i / W))));
 
                         PrjBmp.Dispose();
                     }
@@ -1080,7 +1247,7 @@ namespace WinFormApp
         private const double RatioPerPixel = 0.01; // 每像素的缩放倍率。
         private const double RadPerPixel = Math.PI / 180; // 每像素的旋转弧度。
 
-        private Int32 CursorX = 0; // 鼠标指针 X 坐标。
+        private int CursorX = 0; // 鼠标指针 X 坐标。
         private bool AdjustNow = false; // 是否正在调整。
 
         private Com.PointD4D TesseractSizeCopy = new Com.PointD4D(); // 超立方体各边长的比例。
