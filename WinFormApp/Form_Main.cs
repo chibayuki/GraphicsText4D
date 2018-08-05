@@ -153,8 +153,8 @@ namespace WinFormApp
             Label_Sx.ForeColor = Label_Sy.ForeColor = Label_Sz.ForeColor = Label_Su.ForeColor = Me.RecommendColors.Text.ToColor();
             Label_Sx.BackColor = Label_Sy.BackColor = Label_Sz.BackColor = Label_Su.BackColor = Me.RecommendColors.Button.ToColor();
 
-            Label_Rxy.ForeColor = Label_Ryz.ForeColor = Label_Rzu.ForeColor = Label_Rux.ForeColor = Me.RecommendColors.Text.ToColor();
-            Label_Rxy.BackColor = Label_Ryz.BackColor = Label_Rzu.BackColor = Label_Rux.BackColor = Me.RecommendColors.Button.ToColor();
+            Label_Rxy.ForeColor = Label_Rxz.ForeColor = Label_Rxu.ForeColor = Label_Ryz.ForeColor = Label_Ryu.ForeColor = Label_Rzu.ForeColor = Me.RecommendColors.Text.ToColor();
+            Label_Rxy.BackColor = Label_Rxz.BackColor = Label_Rxu.BackColor = Label_Ryz.BackColor = Label_Ryu.BackColor = Label_Rzu.BackColor = Me.RecommendColors.Button.ToColor();
 
             Label_Rx.ForeColor = Label_Ry.ForeColor = Label_Rz.ForeColor = Me.RecommendColors.Text.ToColor();
             Label_Rx.BackColor = Label_Ry.BackColor = Label_Rz.BackColor = Me.RecommendColors.Button.ToColor();
@@ -164,7 +164,7 @@ namespace WinFormApp
 
         #region 4D绘图
 
-        private void AffineTransform(ref Com.PointD3D Pt, Com.PointD3D Origin, double[,] AffineMatrix)
+        private void AffineTransform(ref Com.PointD3D Pt, Com.PointD3D Origin, Com.Matrix2D AffineMatrix)
         {
             //
             // 将一个 3D 坐标以指定点为新的原点进行仿射变换。
@@ -175,7 +175,7 @@ namespace WinFormApp
             Pt += Origin;
         }
 
-        private void AffineTransform(ref Com.PointD4D Pt, Com.PointD4D Origin, double[,] AffineMatrix)
+        private void AffineTransform(ref Com.PointD4D Pt, Com.PointD4D Origin, Com.Matrix2D AffineMatrix)
         {
             //
             // 将一个 4D 坐标以指定点为新的原点进行仿射变换。
@@ -209,7 +209,7 @@ namespace WinFormApp
             COUNT
         }
 
-        private Bitmap GetProjectionOfTesseract(Com.PointD4D TesseractSize, Color TesseractColor, double[,] AffineMatrix4D, double[,] AffineMatrix3D, Views View, SizeF ImageSize)
+        private Bitmap GetProjectionOfTesseract(Com.PointD4D TesseractSize, Color TesseractColor, Com.Matrix2D AffineMatrix4D, Com.Matrix2D AffineMatrix3D, Views View, SizeF ImageSize)
         {
             //
             // 获取超立方体的投影。
@@ -978,22 +978,8 @@ namespace WinFormApp
 
         private Com.PointD4D TesseractSize = new Com.PointD4D(1, 1, 1, 1); // 超立方体各边长的比例。
 
-        private double[,] AffineMatrix4D = new double[5, 5] // 4D 仿射矩阵。
-        {
-            { 1, 0, 0, 0, 0 },
-            { 0, 1, 0, 0, 0 },
-            { 0, 0, 1, 0, 0 },
-            { 0, 0, 0, 1, 0 },
-            { 0, 0, 0, 0, 1 }
-        };
-
-        private double[,] AffineMatrix3D = new double[4, 4] // 3D 仿射矩阵。
-        {
-            { 1, 0, 0, 0 },
-            { 0, 1, 0, 0 },
-            { 0, 0, 1, 0 },
-            { 0, 0, 0, 1 }
-        };
+        private Com.Matrix2D AffineMatrix4D = Com.Matrix2D.Identity(5); // 4D 仿射矩阵。
+        private Com.Matrix2D AffineMatrix3D = Com.Matrix2D.Identity(4); // 3D 仿射矩阵。
 
         private static class Colors // 颜色。
         {
@@ -1251,8 +1237,8 @@ namespace WinFormApp
         private bool AdjustNow = false; // 是否正在调整。
 
         private Com.PointD4D TesseractSizeCopy = new Com.PointD4D(); // 超立方体各边长的比例。
-        private double[,] AffineMatrix4DCopy = null; // 4D 仿射矩阵。
-        private double[,] AffineMatrix3DCopy = null; // 3D 仿射矩阵。
+        private Com.Matrix2D AffineMatrix4DCopy = null; // 4D 仿射矩阵。
+        private Com.Matrix2D AffineMatrix3DCopy = null; // 3D 仿射矩阵。
 
         private void Label_Control_MouseEnter(object sender, EventArgs e)
         {
@@ -1284,8 +1270,8 @@ namespace WinFormApp
                 ((Label)sender).Cursor = Cursors.SizeWE;
 
                 TesseractSizeCopy = TesseractSize;
-                Com.Matrix2D.Copy(AffineMatrix4D, out AffineMatrix4DCopy);
-                Com.Matrix2D.Copy(AffineMatrix3D, out AffineMatrix3DCopy);
+                AffineMatrix4DCopy = AffineMatrix4D.Copy();
+                AffineMatrix3DCopy = AffineMatrix3D.Copy();
 
                 CursorX = e.X;
                 AdjustNow = true;
@@ -1309,13 +1295,15 @@ namespace WinFormApp
                 Label_Sy.Text = "Y";
                 Label_Sz.Text = "Z";
                 Label_Su.Text = "U";
-                Label_Rxy.Text = "XY";
-                Label_Ryz.Text = "YZ";
-                Label_Rzu.Text = "ZU";
-                Label_Rux.Text = "UX";
-                Label_Rx.Text = "X";
-                Label_Ry.Text = "Y";
-                Label_Rz.Text = "Z";
+                Label_Rxy.Text = "ZU (X-Y)";
+                Label_Rxz.Text = "YU (X-Z)";
+                Label_Rxu.Text = "YZ (U-X)";
+                Label_Ryz.Text = "XU (Y-Z)";
+                Label_Ryu.Text = "XZ (Y-U)";
+                Label_Rzu.Text = "XY (Z-U)";
+                Label_Rx.Text = "X (Y-Z)";
+                Label_Ry.Text = "Y (Z-X)";
+                Label_Rz.Text = "Z (X-Y)";
             }
         }
 
@@ -1403,9 +1391,57 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                double[,] matrixLeft = Com.PointD4D.RotateXYMatrix(angle);
+                Com.Matrix2D matrixLeft = Com.PointD4D.RotateXYMatrix(angle);
 
-                if (Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy, out AffineMatrix4D))
+                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                {
+                    BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void Label_Rxz_MouseMove(object sender, MouseEventArgs e)
+        {
+            //
+            // 鼠标经过 Label_Rxz。
+            //
+
+            if (AdjustNow && !BackgroundWorker_RepaintBmpDelay.IsBusy)
+            {
+                double angle = (e.X - CursorX) * RadPerPixel;
+
+                ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
+
+                Com.Matrix2D matrixLeft = Com.PointD4D.RotateXZMatrix(angle);
+
+                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                {
+                    BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void Label_Rxu_MouseMove(object sender, MouseEventArgs e)
+        {
+            //
+            // 鼠标经过 Label_Rxu。
+            //
+
+            if (AdjustNow && !BackgroundWorker_RepaintBmpDelay.IsBusy)
+            {
+                double angle = (e.X - CursorX) * RadPerPixel;
+
+                ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
+
+                Com.Matrix2D matrixLeft = Com.PointD4D.RotateXUMatrix(angle);
+
+                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1424,9 +1460,34 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                double[,] matrixLeft = Com.PointD4D.RotateYZMatrix(angle);
+                Com.Matrix2D matrixLeft = Com.PointD4D.RotateYZMatrix(angle);
 
-                if (Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy, out AffineMatrix4D))
+                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                {
+                    BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void Label_Ryu_MouseMove(object sender, MouseEventArgs e)
+        {
+            //
+            // 鼠标经过 Label_Ryu。
+            //
+
+            if (AdjustNow && !BackgroundWorker_RepaintBmpDelay.IsBusy)
+            {
+                double angle = (e.X - CursorX) * RadPerPixel;
+
+                ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
+
+                Com.Matrix2D matrixLeft = Com.PointD4D.RotateYUMatrix(angle);
+
+                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1445,30 +1506,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                double[,] matrixLeft = Com.PointD4D.RotateZUMatrix(angle);
+                Com.Matrix2D matrixLeft = Com.PointD4D.RotateZUMatrix(angle);
 
-                if (Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy, out AffineMatrix4D))
-                {
-                    BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
-                }
-            }
-        }
+                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-        private void Label_Rux_MouseMove(object sender, MouseEventArgs e)
-        {
-            //
-            // 鼠标经过 Label_Rux。
-            //
-
-            if (AdjustNow && !BackgroundWorker_RepaintBmpDelay.IsBusy)
-            {
-                double angle = (e.X - CursorX) * RadPerPixel;
-
-                ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
-
-                double[,] matrixLeft = Com.PointD4D.RotateUXMatrix(angle);
-
-                if (Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy, out AffineMatrix4D))
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1487,9 +1529,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                double[,] matrixLeft = Com.PointD3D.RotateXMatrix(angle);
+                Com.Matrix2D matrixLeft = Com.PointD3D.RotateXMatrix(angle);
 
-                if (Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy, out AffineMatrix3D))
+                AffineMatrix3D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1508,9 +1552,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                double[,] matrixLeft = Com.PointD3D.RotateYMatrix(angle);
+                Com.Matrix2D matrixLeft = Com.PointD3D.RotateYMatrix(angle);
 
-                if (Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy, out AffineMatrix3D))
+                AffineMatrix3D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1529,9 +1575,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                double[,] matrixLeft = Com.PointD3D.RotateZMatrix(angle);
+                Com.Matrix2D matrixLeft = Com.PointD3D.RotateZMatrix(angle);
 
-                if (Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy, out AffineMatrix3D))
+                AffineMatrix3D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy);
+
+                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }

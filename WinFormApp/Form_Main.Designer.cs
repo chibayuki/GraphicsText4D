@@ -41,9 +41,11 @@
             this.Label_Su = new System.Windows.Forms.Label();
             this.Label_Rotation = new System.Windows.Forms.Label();
             this.Label_Rxy = new System.Windows.Forms.Label();
+            this.Label_Rxz = new System.Windows.Forms.Label();
+            this.Label_Rxu = new System.Windows.Forms.Label();
             this.Label_Ryz = new System.Windows.Forms.Label();
+            this.Label_Ryu = new System.Windows.Forms.Label();
             this.Label_Rzu = new System.Windows.Forms.Label();
-            this.Label_Rux = new System.Windows.Forms.Label();
             this.Label_Rx = new System.Windows.Forms.Label();
             this.Label_Ry = new System.Windows.Forms.Label();
             this.Label_Rz = new System.Windows.Forms.Label();
@@ -81,7 +83,7 @@
             this.Panel_Control.Controls.Add(this.Panel_Control_SubFormClient);
             this.Panel_Control.Location = new System.Drawing.Point(0, 0);
             this.Panel_Control.Name = "Panel_Control";
-            this.Panel_Control.Size = new System.Drawing.Size(265, 140);
+            this.Panel_Control.Size = new System.Drawing.Size(265, 165);
             this.Panel_Control.TabIndex = 0;
             // 
             // Label_Control_SubFormTitle
@@ -107,15 +109,17 @@
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Su);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rotation);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rxy);
+            this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rxz);
+            this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rxu);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Ryz);
+            this.Panel_Control_SubFormClient.Controls.Add(this.Label_Ryu);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rzu);
-            this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rux);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rx);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Ry);
             this.Panel_Control_SubFormClient.Controls.Add(this.Label_Rz);
             this.Panel_Control_SubFormClient.Location = new System.Drawing.Point(0, 20);
             this.Panel_Control_SubFormClient.Name = "Panel_Control_SubFormClient";
-            this.Panel_Control_SubFormClient.Size = new System.Drawing.Size(265, 120);
+            this.Panel_Control_SubFormClient.Size = new System.Drawing.Size(265, 145);
             this.Panel_Control_SubFormClient.TabIndex = 0;
             this.Panel_Control_SubFormClient.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_Control_SubFormClient_Paint);
             // 
@@ -213,7 +217,7 @@
             this.Label_Rxy.Name = "Label_Rxy";
             this.Label_Rxy.Size = new System.Drawing.Size(60, 20);
             this.Label_Rxy.TabIndex = 0;
-            this.Label_Rxy.Text = "XY";
+            this.Label_Rxy.Text = "ZU (X-Y)";
             this.Label_Rxy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_Rxy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
             this.Label_Rxy.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
@@ -221,15 +225,47 @@
             this.Label_Rxy.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rxy_MouseMove);
             this.Label_Rxy.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
+            // Label_Rxz
+            // 
+            this.Label_Rxz.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Label_Rxz.ForeColor = System.Drawing.Color.White;
+            this.Label_Rxz.Location = new System.Drawing.Point(70, 70);
+            this.Label_Rxz.Name = "Label_Rxz";
+            this.Label_Rxz.Size = new System.Drawing.Size(60, 20);
+            this.Label_Rxz.TabIndex = 0;
+            this.Label_Rxz.Text = "YU (X-Z)";
+            this.Label_Rxz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Label_Rxz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Rxz.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Rxz.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
+            this.Label_Rxz.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rxz_MouseMove);
+            this.Label_Rxz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
+            // 
+            // Label_Rxu
+            // 
+            this.Label_Rxu.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Label_Rxu.ForeColor = System.Drawing.Color.White;
+            this.Label_Rxu.Location = new System.Drawing.Point(135, 70);
+            this.Label_Rxu.Name = "Label_Rxu";
+            this.Label_Rxu.Size = new System.Drawing.Size(60, 20);
+            this.Label_Rxu.TabIndex = 0;
+            this.Label_Rxu.Text = "YZ (U-X)";
+            this.Label_Rxu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Label_Rxu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Rxu.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Rxu.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
+            this.Label_Rxu.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rxu_MouseMove);
+            this.Label_Rxu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
+            // 
             // Label_Ryz
             // 
             this.Label_Ryz.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label_Ryz.ForeColor = System.Drawing.Color.White;
-            this.Label_Ryz.Location = new System.Drawing.Point(70, 70);
+            this.Label_Ryz.Location = new System.Drawing.Point(5, 95);
             this.Label_Ryz.Name = "Label_Ryz";
             this.Label_Ryz.Size = new System.Drawing.Size(60, 20);
             this.Label_Ryz.TabIndex = 0;
-            this.Label_Ryz.Text = "YZ";
+            this.Label_Ryz.Text = "XU (Y-Z)";
             this.Label_Ryz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_Ryz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
             this.Label_Ryz.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
@@ -237,15 +273,31 @@
             this.Label_Ryz.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Ryz_MouseMove);
             this.Label_Ryz.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
+            // Label_Ryu
+            // 
+            this.Label_Ryu.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Label_Ryu.ForeColor = System.Drawing.Color.White;
+            this.Label_Ryu.Location = new System.Drawing.Point(70, 95);
+            this.Label_Ryu.Name = "Label_Ryu";
+            this.Label_Ryu.Size = new System.Drawing.Size(60, 20);
+            this.Label_Ryu.TabIndex = 0;
+            this.Label_Ryu.Text = "XZ (Y-U)";
+            this.Label_Ryu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Label_Ryu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
+            this.Label_Ryu.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
+            this.Label_Ryu.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
+            this.Label_Ryu.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Ryu_MouseMove);
+            this.Label_Ryu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
+            // 
             // Label_Rzu
             // 
             this.Label_Rzu.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label_Rzu.ForeColor = System.Drawing.Color.White;
-            this.Label_Rzu.Location = new System.Drawing.Point(135, 70);
+            this.Label_Rzu.Location = new System.Drawing.Point(135, 95);
             this.Label_Rzu.Name = "Label_Rzu";
             this.Label_Rzu.Size = new System.Drawing.Size(60, 20);
             this.Label_Rzu.TabIndex = 0;
-            this.Label_Rzu.Text = "ZU";
+            this.Label_Rzu.Text = "XY (Z-U)";
             this.Label_Rzu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_Rzu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
             this.Label_Rzu.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
@@ -253,31 +305,15 @@
             this.Label_Rzu.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rzu_MouseMove);
             this.Label_Rzu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
             // 
-            // Label_Rux
-            // 
-            this.Label_Rux.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Label_Rux.ForeColor = System.Drawing.Color.White;
-            this.Label_Rux.Location = new System.Drawing.Point(200, 70);
-            this.Label_Rux.Name = "Label_Rux";
-            this.Label_Rux.Size = new System.Drawing.Size(60, 20);
-            this.Label_Rux.TabIndex = 0;
-            this.Label_Rux.Text = "UX";
-            this.Label_Rux.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Label_Rux.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
-            this.Label_Rux.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
-            this.Label_Rux.MouseLeave += new System.EventHandler(this.Label_Control_MouseLeave);
-            this.Label_Rux.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_Rux_MouseMove);
-            this.Label_Rux.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseUp);
-            // 
             // Label_Rx
             // 
             this.Label_Rx.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label_Rx.ForeColor = System.Drawing.Color.White;
-            this.Label_Rx.Location = new System.Drawing.Point(5, 95);
+            this.Label_Rx.Location = new System.Drawing.Point(5, 120);
             this.Label_Rx.Name = "Label_Rx";
             this.Label_Rx.Size = new System.Drawing.Size(60, 20);
             this.Label_Rx.TabIndex = 0;
-            this.Label_Rx.Text = "X";
+            this.Label_Rx.Text = "X (Y-Z)";
             this.Label_Rx.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_Rx.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
             this.Label_Rx.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
@@ -289,11 +325,11 @@
             // 
             this.Label_Ry.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label_Ry.ForeColor = System.Drawing.Color.White;
-            this.Label_Ry.Location = new System.Drawing.Point(70, 95);
+            this.Label_Ry.Location = new System.Drawing.Point(70, 120);
             this.Label_Ry.Name = "Label_Ry";
             this.Label_Ry.Size = new System.Drawing.Size(60, 20);
             this.Label_Ry.TabIndex = 0;
-            this.Label_Ry.Text = "Y";
+            this.Label_Ry.Text = "Y (Z-X)";
             this.Label_Ry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_Ry.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
             this.Label_Ry.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
@@ -305,11 +341,11 @@
             // 
             this.Label_Rz.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label_Rz.ForeColor = System.Drawing.Color.White;
-            this.Label_Rz.Location = new System.Drawing.Point(135, 95);
+            this.Label_Rz.Location = new System.Drawing.Point(135, 120);
             this.Label_Rz.Name = "Label_Rz";
             this.Label_Rz.Size = new System.Drawing.Size(60, 20);
             this.Label_Rz.TabIndex = 0;
-            this.Label_Rz.Text = "Z";
+            this.Label_Rz.Text = "Z (X-Y)";
             this.Label_Rz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_Rz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
             this.Label_Rz.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
@@ -358,7 +394,7 @@
         private System.Windows.Forms.Panel Panel_Client;
         private System.Windows.Forms.Panel Panel_GraphArea;
         private System.Windows.Forms.Panel Panel_Control;
-        private System.Windows.Forms.Label Label_Rux;
+        private System.Windows.Forms.Label Label_Rxu;
         private System.Windows.Forms.Label Label_Rxy;
         private System.Windows.Forms.Label Label_Ryz;
         private System.Windows.Forms.Label Label_Rzu;
@@ -374,5 +410,7 @@
         private System.Windows.Forms.Label Label_Rotation;
         private System.Windows.Forms.Panel Panel_Control_SubFormClient;
         private System.ComponentModel.BackgroundWorker BackgroundWorker_RepaintBmpDelay;
+        private System.Windows.Forms.Label Label_Ryu;
+        private System.Windows.Forms.Label Label_Rxz;
     }
 }
