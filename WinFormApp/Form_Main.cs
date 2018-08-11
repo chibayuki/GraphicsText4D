@@ -1297,7 +1297,7 @@ namespace WinFormApp
                 Label_Su.Text = "U";
                 Label_Rxy.Text = "ZU (X-Y)";
                 Label_Rxz.Text = "YU (X-Z)";
-                Label_Rxu.Text = "YZ (U-X)";
+                Label_Rxu.Text = "YZ (X-U)";
                 Label_Ryz.Text = "XU (Y-Z)";
                 Label_Ryu.Text = "XZ (Y-U)";
                 Label_Rzu.Text = "XY (Z-U)";

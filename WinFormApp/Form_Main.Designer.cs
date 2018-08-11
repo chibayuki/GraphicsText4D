@@ -249,7 +249,7 @@
             this.Label_Rxu.Name = "Label_Rxu";
             this.Label_Rxu.Size = new System.Drawing.Size(60, 20);
             this.Label_Rxu.TabIndex = 0;
-            this.Label_Rxu.Text = "YZ (U-X)";
+            this.Label_Rxu.Text = "YZ (X-U)";
             this.Label_Rxu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_Rxu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_Control_MouseDown);
             this.Label_Rxu.MouseEnter += new System.EventHandler(this.Label_Control_MouseEnter);
