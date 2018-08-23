@@ -164,7 +164,7 @@ namespace WinFormApp
 
         #region 4D绘图
 
-        private void AffineTransform(ref Com.PointD3D Pt, Com.PointD3D Origin, Com.Matrix2D AffineMatrix)
+        private void AffineTransform(ref Com.PointD3D Pt, Com.PointD3D Origin, Com.Matrix AffineMatrix)
         {
             //
             // 将一个 3D 坐标以指定点为新的原点进行仿射变换。
@@ -175,7 +175,7 @@ namespace WinFormApp
             Pt += Origin;
         }
 
-        private void AffineTransform(ref Com.PointD4D Pt, Com.PointD4D Origin, Com.Matrix2D AffineMatrix)
+        private void AffineTransform(ref Com.PointD4D Pt, Com.PointD4D Origin, Com.Matrix AffineMatrix)
         {
             //
             // 将一个 4D 坐标以指定点为新的原点进行仿射变换。
@@ -209,7 +209,7 @@ namespace WinFormApp
             COUNT
         }
 
-        private Bitmap GetProjectionOfTesseract(Com.PointD4D TesseractSize, Color TesseractColor, Com.Matrix2D AffineMatrix4D, Com.Matrix2D AffineMatrix3D, Views View, SizeF ImageSize)
+        private Bitmap GetProjectionOfTesseract(Com.PointD4D TesseractSize, Color TesseractColor, Com.Matrix AffineMatrix4D, Com.Matrix AffineMatrix3D, Views View, SizeF ImageSize)
         {
             //
             // 获取超立方体的投影。
@@ -978,8 +978,8 @@ namespace WinFormApp
 
         private Com.PointD4D TesseractSize = new Com.PointD4D(1, 1, 1, 1); // 超立方体各边长的比例。
 
-        private Com.Matrix2D AffineMatrix4D = Com.Matrix2D.Identity(5); // 4D 仿射矩阵。
-        private Com.Matrix2D AffineMatrix3D = Com.Matrix2D.Identity(4); // 3D 仿射矩阵。
+        private Com.Matrix AffineMatrix4D = Com.Matrix.Identity(5); // 4D 仿射矩阵。
+        private Com.Matrix AffineMatrix3D = Com.Matrix.Identity(4); // 3D 仿射矩阵。
 
         private static class Colors // 颜色。
         {
@@ -1237,8 +1237,8 @@ namespace WinFormApp
         private bool AdjustNow = false; // 是否正在调整。
 
         private Com.PointD4D TesseractSizeCopy = new Com.PointD4D(); // 超立方体各边长的比例。
-        private Com.Matrix2D AffineMatrix4DCopy = null; // 4D 仿射矩阵。
-        private Com.Matrix2D AffineMatrix3DCopy = null; // 3D 仿射矩阵。
+        private Com.Matrix AffineMatrix4DCopy = null; // 4D 仿射矩阵。
+        private Com.Matrix AffineMatrix3DCopy = null; // 3D 仿射矩阵。
 
         private void Label_Control_MouseEnter(object sender, EventArgs e)
         {
@@ -1391,11 +1391,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD4D.RotateXYMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateXYMatrix(angle);
 
-                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+                AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1414,11 +1414,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD4D.RotateXZMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateXZMatrix(angle);
 
-                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+                AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1437,11 +1437,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD4D.RotateXUMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateXUMatrix(angle);
 
-                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+                AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1460,11 +1460,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD4D.RotateYZMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateYZMatrix(angle);
 
-                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+                AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1483,11 +1483,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD4D.RotateYUMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateYUMatrix(angle);
 
-                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+                AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1506,11 +1506,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD4D.RotateZUMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateZUMatrix(angle);
 
-                AffineMatrix4D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix4DCopy);
+                AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1529,11 +1529,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD3D.RotateXMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD3D.RotateXMatrix(angle);
 
-                AffineMatrix3D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy);
+                AffineMatrix3D = Com.Matrix.Multiply(matrixLeft, AffineMatrix3DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix3D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1552,11 +1552,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD3D.RotateYMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD3D.RotateYMatrix(angle);
 
-                AffineMatrix3D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy);
+                AffineMatrix3D = Com.Matrix.Multiply(matrixLeft, AffineMatrix3DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix3D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1575,11 +1575,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix2D matrixLeft = Com.PointD3D.RotateZMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD3D.RotateZMatrix(angle);
 
-                AffineMatrix3D = Com.Matrix2D.Multiply(matrixLeft, AffineMatrix3DCopy);
+                AffineMatrix3D = Com.Matrix.Multiply(matrixLeft, AffineMatrix3DCopy);
 
-                if (!Com.Matrix2D.IsNullOrNonMatrix(AffineMatrix3D))
+                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
