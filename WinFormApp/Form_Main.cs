@@ -37,23 +37,6 @@ namespace WinFormApp
             }
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                const int WS_MINIMIZEBOX = 0x00020000;
-
-                CreateParams CP = base.CreateParams;
-
-                if (Me != null && Me.FormStyle != Com.WinForm.FormStyle.Dialog)
-                {
-                    CP.Style = CP.Style | WS_MINIMIZEBOX;
-                }
-
-                return CP;
-            }
-        }
-
         private void _Ctor(Com.WinForm.FormManager owner)
         {
             InitializeComponent();
