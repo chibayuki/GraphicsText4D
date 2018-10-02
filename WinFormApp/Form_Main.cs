@@ -2,7 +2,7 @@
 Copyright © 2018 chibayuki@foxmail.com
 
 4D绘图测试
-Version 18.7.10.0000
+Version 18.10.2.1600
 
 This file is part of "4D绘图测试" (GraphicsText4D)
 
