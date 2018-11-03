@@ -200,7 +200,7 @@ namespace WinFormApp
 
             double TesseractDiag = Math.Min(ImageSize.Width, ImageSize.Height);
 
-            TesseractSize = TesseractSize.VectorNormalize * TesseractDiag;
+            TesseractSize = TesseractSize.Normalize * TesseractDiag;
 
             Bitmap PrjBmp = new Bitmap(Math.Max(1, (int)ImageSize.Width), Math.Max(1, (int)ImageSize.Height));
 
@@ -263,7 +263,7 @@ namespace WinFormApp
 
             //
 
-            double TrueLenDist4D = new Com.PointD(Screen.PrimaryScreen.Bounds.Size).VectorModule;
+            double TrueLenDist4D = new Com.PointD(Screen.PrimaryScreen.Bounds.Size).Module;
 
             Com.PointD4D PrjCenter4D = TesseractCenter;
 
@@ -388,7 +388,7 @@ namespace WinFormApp
 
             //
 
-            double TrueLenDist3D = new Com.PointD(Screen.PrimaryScreen.Bounds.Size).VectorModule;
+            double TrueLenDist3D = new Com.PointD(Screen.PrimaryScreen.Bounds.Size).Module;
 
             Com.PointD3D PrjCenter3D = TesseractCenter.XYZ;
 
@@ -1302,7 +1302,7 @@ namespace WinFormApp
 
                 ((Label)sender).Text = "× " + ratio.ToString("F2");
 
-                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X * ratio, TesseractSizeCopy.Y, TesseractSizeCopy.Z, TesseractSizeCopy.U).VectorNormalize);
+                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X * ratio, TesseractSizeCopy.Y, TesseractSizeCopy.Z, TesseractSizeCopy.U).Normalize);
 
                 BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
             }
@@ -1320,7 +1320,7 @@ namespace WinFormApp
 
                 ((Label)sender).Text = "× " + ratio.ToString("F2");
 
-                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X, TesseractSizeCopy.Y * ratio, TesseractSizeCopy.Z, TesseractSizeCopy.U).VectorNormalize);
+                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X, TesseractSizeCopy.Y * ratio, TesseractSizeCopy.Z, TesseractSizeCopy.U).Normalize);
 
                 BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
             }
@@ -1338,7 +1338,7 @@ namespace WinFormApp
 
                 ((Label)sender).Text = "× " + ratio.ToString("F2");
 
-                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X, TesseractSizeCopy.Y, TesseractSizeCopy.Z * ratio, TesseractSizeCopy.U).VectorNormalize);
+                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X, TesseractSizeCopy.Y, TesseractSizeCopy.Z * ratio, TesseractSizeCopy.U).Normalize);
 
                 BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
             }
@@ -1356,7 +1356,7 @@ namespace WinFormApp
 
                 ((Label)sender).Text = "× " + ratio.ToString("F2");
 
-                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X, TesseractSizeCopy.Y, TesseractSizeCopy.Z, TesseractSizeCopy.U * ratio).VectorNormalize);
+                TesseractSize = Com.PointD4D.Max(new Com.PointD4D(0.001, 0.001, 0.001, 0.001), new Com.PointD4D(TesseractSizeCopy.X, TesseractSizeCopy.Y, TesseractSizeCopy.Z, TesseractSizeCopy.U * ratio).Normalize);
 
                 BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
             }
@@ -1374,11 +1374,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix matrixLeft = Com.PointD4D.RotateXYMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateMatrix(0, 1, angle);
 
                 AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1397,11 +1397,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix matrixLeft = Com.PointD4D.RotateXZMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateMatrix(0, 2, angle);
 
                 AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1420,11 +1420,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix matrixLeft = Com.PointD4D.RotateXUMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateMatrix(0, 3, angle);
 
                 AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1443,11 +1443,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix matrixLeft = Com.PointD4D.RotateYZMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateMatrix(1, 2, angle);
 
                 AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1466,11 +1466,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix matrixLeft = Com.PointD4D.RotateYUMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateMatrix(1, 3, angle);
 
                 AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1489,11 +1489,11 @@ namespace WinFormApp
 
                 ((Label)sender).Text = (angle >= 0 ? "+ " : "- ") + (Math.Abs(angle) / Math.PI * 180).ToString("F0") + "°";
 
-                Com.Matrix matrixLeft = Com.PointD4D.RotateZUMatrix(angle);
+                Com.Matrix matrixLeft = Com.PointD4D.RotateMatrix(2, 3, angle);
 
                 AffineMatrix4D = Com.Matrix.Multiply(matrixLeft, AffineMatrix4DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix4D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix4D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1516,7 +1516,7 @@ namespace WinFormApp
 
                 AffineMatrix3D = Com.Matrix.Multiply(matrixLeft, AffineMatrix3DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix3D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1539,7 +1539,7 @@ namespace WinFormApp
 
                 AffineMatrix3D = Com.Matrix.Multiply(matrixLeft, AffineMatrix3DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix3D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
@@ -1562,7 +1562,7 @@ namespace WinFormApp
 
                 AffineMatrix3D = Com.Matrix.Multiply(matrixLeft, AffineMatrix3DCopy);
 
-                if (!Com.Matrix.IsNullOrNonMatrix(AffineMatrix3D))
+                if (!Com.Matrix.IsNullOrEmpty(AffineMatrix3D))
                 {
                     BackgroundWorker_RepaintBmpDelay.RunWorkerAsync();
                 }
