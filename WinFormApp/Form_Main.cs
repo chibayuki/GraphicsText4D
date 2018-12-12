@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Drawing.Drawing2D;
+using System.Threading;
 
 namespace WinFormApp
 {
@@ -1179,6 +1180,7 @@ namespace WinFormApp
             if (e.Button == MouseButtons.Left)
             {
                 CursorLoc = e.Location;
+
                 SubFormIsMoving = true;
             }
         }
@@ -1191,10 +1193,12 @@ namespace WinFormApp
 
             if (e.Button == MouseButtons.Left)
             {
-                SubFormIsMoving = false;
+                CancelMoveSubForm();
 
                 Panel_Control.Location = new Point(Math.Max(0, Math.Min(Panel_Control.Left, Panel_Client.Width - Label_Control_SubFormTitle.Right)), Math.Max(0, Math.Min(Panel_Control.Top, Panel_Client.Height - Label_Control_SubFormTitle.Bottom)));
             }
+
+            SubFormIsMoving = false;
         }
 
         private void Label_Control_SubFormTitle_MouseMove(object sender, MouseEventArgs e)
@@ -1205,7 +1209,62 @@ namespace WinFormApp
 
             if (SubFormIsMoving)
             {
-                Panel_Control.Location = new Point(Panel_Control.Left + (e.X - CursorLoc.X), Panel_Control.Top + (e.Y - CursorLoc.Y));
+                NewLocation = new Point(Panel_Control.Left + (e.X - CursorLoc.X), Panel_Control.Top + (e.Y - CursorLoc.Y));
+
+                TryToMoveSubForm(NewLocation);
+            }
+        }
+
+        private DateTime LastMoveSubForm = new DateTime(); // 上次移动子窗口的日期时间。
+        private Point NewLocation = new Point(); // 子窗口的新位置。
+        private bool MoveSubFormCanceled = false; // 是否已取消移动子窗口。
+
+        private void TryToMoveSubForm(Point newLocation)
+        {
+            //
+            // 尝试移动子窗口。
+            //
+
+            if (!BackgroundWorker_MoveSubFormDelay.IsBusy)
+            {
+                MoveSubFormCanceled = false;
+
+                BackgroundWorker_MoveSubFormDelay.RunWorkerAsync();
+            }
+        }
+
+        private void CancelMoveSubForm()
+        {
+            //
+            // 取消移动子窗口。
+            //
+
+            MoveSubFormCanceled = true;
+        }
+
+        private void BackgroundWorker_MoveSubFormDelay_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //
+            // 移动子窗口延迟。
+            //
+
+            while ((DateTime.Now - LastMoveSubForm).TotalMilliseconds < 16)
+            {
+                Thread.Sleep(4);
+            }
+        }
+
+        private void BackgroundWorker_MoveSubFormDelay_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //
+            // 移动子窗口延迟完成，更新子窗口位置。
+            //
+
+            if (!MoveSubFormCanceled)
+            {
+                Panel_Control.Location = NewLocation;
+
+                LastMoveSubForm = DateTime.Now;
             }
         }
 

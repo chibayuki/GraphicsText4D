@@ -51,6 +51,7 @@
             this.Label_Rz = new System.Windows.Forms.Label();
             this.Panel_GraphArea = new System.Windows.Forms.Panel();
             this.BackgroundWorker_RepaintBmpDelay = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker_MoveSubFormDelay = new System.ComponentModel.BackgroundWorker();
             this.Panel_Main.SuspendLayout();
             this.Panel_Client.SuspendLayout();
             this.Panel_Control.SuspendLayout();
@@ -368,6 +369,11 @@
             this.BackgroundWorker_RepaintBmpDelay.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_RepaintBmpDelay_DoWork);
             this.BackgroundWorker_RepaintBmpDelay.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RepaintBmpDelay_RunWorkerCompleted);
             // 
+            // BackgroundWorker_MoveSubFormDelay
+            // 
+            this.BackgroundWorker_MoveSubFormDelay.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_MoveSubFormDelay_DoWork);
+            this.BackgroundWorker_MoveSubFormDelay.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_MoveSubFormDelay_RunWorkerCompleted);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -412,5 +418,6 @@
         private System.ComponentModel.BackgroundWorker BackgroundWorker_RepaintBmpDelay;
         private System.Windows.Forms.Label Label_Ryu;
         private System.Windows.Forms.Label Label_Rxz;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker_MoveSubFormDelay;
     }
 }
