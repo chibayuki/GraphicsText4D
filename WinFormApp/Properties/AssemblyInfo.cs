@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("4D绘图测试")]
-[assembly: AssemblyCopyright("Copyright © 2018 chibayuki.visualstudio.com")]
+[assembly: AssemblyCopyright("Copyright © 2019 chibayuki.visualstudio.com")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("18.10.2.1600")]
-[assembly: AssemblyFileVersion("18.10.2.1600")]
+[assembly: AssemblyVersion("19.5.25.1400")]
+[assembly: AssemblyFileVersion("19.5.25.1400")]

@@ -1,8 +1,8 @@
 ﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-Copyright © 2018 chibayuki@foxmail.com
+Copyright © 2019 chibayuki@foxmail.com
 
-4D绘图测试
-Version 18.10.2.1600
+4D绘图测试 (GraphicsText4D)
+Version 19.5.25.1400
 
 This file is part of "4D绘图测试" (GraphicsText4D)
 
